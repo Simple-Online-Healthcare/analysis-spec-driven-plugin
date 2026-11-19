@@ -1,0 +1,6 @@
+{
+  "name": "analysis-spec-driven",
+  "version": "0.1.0",
+  "description": "Spec-driven data analysis workflow. One workflow skill (analysis-workflow): frame the question, settle the method one decision at a time, run saved SQL, verify by replay, write a plain-English report with visuals, review, hand over. Evidence is committed as a re-runnable pack. Includes a report-writing skill, a first-time analysis-setup skill, and four read-only sub-agents (replay-verifier, method-reviewer, report-checker, writing-checker). Cortex-only.",
+  "skills": "skills"
+}
