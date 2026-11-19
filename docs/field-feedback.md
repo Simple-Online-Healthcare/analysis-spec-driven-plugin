@@ -93,7 +93,7 @@ Study-specific figures are kept in the team's private analysis repository, not h
 
 ## First automated review of the plugin itself (November 2026)
 
-An automated reviewer read PR #1 and found real problems in the rules we wrote.
+An automated reviewer read the first draft of the plugin and found real problems in the rules we wrote.
 
 ### Observations
 
@@ -144,7 +144,7 @@ Reviewing the first round of fixes found further gaps, which were also fixed:
 ### Agent metadata follow-up
 
 - Agent frontmatter was initially deferred based on the sibling plugin, without a
-  registration test. PR #1 follow-up added `name` and `description` to all three agents,
+  registration test. A follow-up added `name` and `description` to all three agents,
   following the [official subagent format](https://docs.snowflake.com/en/user-guide/cortex-code/extensibility#extensibility-subagents).
   The conventional `agents/` directory needs no manifest override. Live registration
   still needs an install/reload test; metadata validation alone does not prove it.
@@ -184,12 +184,12 @@ private analysis repository.
 
 ### Open
 
-- Rewriting the published page with the two visuals needs your permission and was not done.
+- Adding the two visuals to that study's published page needs the owner's permission and was not done.
 - A teammate has not yet run the flow end to end.
 
 ---
 
-## Complete PR #1 comment audit (November 2026)
+## Complete audit of the first review comments (November 2026)
 
 ### Observations
 

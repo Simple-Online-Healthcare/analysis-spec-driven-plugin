@@ -112,8 +112,9 @@ as contributions rather than forks.
 
 This plugin is meant to be changed by the team as it is used.
 
-1. Branch from `main`. The default branch is protected: changes need a PR with one
-   approving review, and review threads must be resolved. Nobody bypasses this.
+1. Branch from `main` and open a pull request. The default branch is protected: changes
+   go in through a pull request, and open review comments must be resolved before it
+   merges.
 2. When a rule fails in real use, add an entry to `docs/field-feedback.md` (what
    happened, which rule or file changed, what changed) and fix it in the same PR.
 3. Keep the Profile the only place with team-specific values.
