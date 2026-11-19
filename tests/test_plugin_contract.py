@@ -1,4 +1,4 @@
-"""Small structural regressions for the PR review fixes; no live services required."""
+"""Small structural regressions for the review fixes; no live services required."""
 
 import json
 from pathlib import Path
