@@ -41,7 +41,7 @@ def visible_text(markdown):
             if "-->" not in line:
                 continue
             line, comment = line.split("-->", 1)[1], False
-        line = re.sub(r"<!--.*?-->", " ", line)
+        line = re.sub(r"<!--.*?-->", " ", line, flags=re.S)
         if "<!--" in line:
             line, comment = line.split("<!--", 1)[0], True
         if tail == "destination" and DESTINATION.match(line):
