@@ -107,7 +107,7 @@ reason to reopen it.
 ```
 ## Writing Check
 Verdict: PASS | HIGH ISSUES FOUND
-Files checked: <path> sha256 <first 12 characters>, one line per file (report, methodology.md, others)
+Files checked: <path> sha256 <full 64-character digest>, one line per file (report, methodology.md, others)
 Re-review: <n> fixed, <n> still open, <n> new | first review
 Em dashes: <n>   Percentages: <n> (with count and total: <n>)
 Jargon terms found: <n> (explained: <n>)   Longest sentence: <n> words

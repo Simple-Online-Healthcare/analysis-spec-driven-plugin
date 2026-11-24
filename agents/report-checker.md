@@ -27,7 +27,7 @@ to its owner, not as an issue.
 
 ## Process
 
-Record the SHA-256 of the report and of each chart image you check.
+Record the full SHA-256 of the report, of each chart image and of `methodology.md`.
 
 1. **Executive read. Do this first, before opening any other input.** Read only the
    summary and "What this report supports", with the charts, as a decision maker given
@@ -121,7 +121,7 @@ reason to reopen it.
 ```
 ## Report Check
 Verdict: PASS | HIGH ISSUES FOUND
-Files checked: <path> sha256 <first 12 characters>, one line per report and chart
+Files checked: <path> sha256 <full 64-character digest>, one line per report, chart and methodology.md
 Words: <count> (count_words.py; target <Profile>, maximum <Profile>)   Reading time: ~<n> min + ~2 min visuals
 Visuals: <count> (minimum <n>)
 Re-review: <n> fixed, <n> still open, <n> new | first review

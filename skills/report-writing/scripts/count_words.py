@@ -16,7 +16,9 @@ import sys
 
 FENCE = re.compile(r"\s*(`{3,}|~{3,})")
 RULE_ROW = re.compile(r"\s*\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)*\|?\s*$")
-DEFINITION = re.compile(r"\s*\[([^\]^][^\]]*)\]:\s")
+DEFINITION = re.compile(r"\s*\[([^\]^][^\]]*)\]:(?:\s+(.*))?$")
+DESTINATION = re.compile(r"""\s*(<[^>]*>|[^\s"'(]\S*)(\s+("[^"]*"|'[^']*'|\([^)]*\)))?\s*$""")
+TITLE = re.compile(r"""\s*("[^"]*"|'[^']*'|\([^)]*\))\s*$""")
 
 
 def label(name):
@@ -27,6 +29,7 @@ def visible_text(markdown):
     # One pass: comment markers inside fenced code stay literal, and fence markers inside
     # a comment cannot open a code block.
     lines, definitions, fence, comment = [], set(), None, False
+    tail = None  # a definition's destination or title may continue on the next line
     for line in markdown.splitlines():
         if fence:
             closer = FENCE.match(line)
@@ -41,6 +44,13 @@ def visible_text(markdown):
         line = re.sub(r"<!--.*?-->", " ", line)
         if "<!--" in line:
             line, comment = line.split("<!--", 1)[0], True
+        if tail == "destination" and DESTINATION.match(line):
+            tail = "title" if DESTINATION.match(line).group(2) is None else None
+            continue
+        if tail == "title" and TITLE.match(line):
+            tail = None
+            continue
+        tail = None
         opener = FENCE.match(line)
         if opener:
             fence = opener.group(1)
@@ -48,6 +58,7 @@ def visible_text(markdown):
         definition = DEFINITION.match(line)
         if definition:
             definitions.add(label(definition.group(1)))
+            tail = "title" if (definition.group(2) or "").strip() else "destination"
             continue
         if not RULE_ROW.match(line):
             lines.append(line)

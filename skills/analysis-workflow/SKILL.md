@@ -241,8 +241,9 @@ warehouse re-run.
 
 1. Check `git status`. Stage only this analysis: the pack, the visuals and the report. No
    scratch files, no record-level extracts. Before committing, compare the SHA-256 of the
-   report, chart and `methodology.md` files with the review hashes in `evidence_index.md`;
-   a mismatch needs the matching recheck first (`AGENTS.md` §8).
+   **staged** report, chart and `methodology.md` files (`git show :<path> | shasum -a 256`)
+   with the review hashes in `evidence_index.md`. A mismatch needs the matching recheck
+   first (`AGENTS.md` §8); restage any file the recheck changes, then compare again.
 2. Commit with the ticket ID if there is one. Push the branch and open a PR to the base
    branch. The body carries: the question, the agreed design, the verification result,
    the known limits, and the visuals as images.

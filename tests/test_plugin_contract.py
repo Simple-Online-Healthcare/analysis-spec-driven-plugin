@@ -173,6 +173,8 @@ class PluginContractTests(unittest.TestCase):
             ("![literal words] stays", 3),
             ("```\n<!--\n```\nVisible after\n\n<!-- real -->\nMore words here", 5),
             ("Keep this <!-- start\nhidden\n--> and this", 4),
+            ('See [the chart] here.\n\n[the chart]:\n  visuals/a.png\n  "Chart title"\n', 4),
+            ("[ref]: visuals/a.png\nNext paragraph line", 3),
         ):
             with self.subTest(edge=edge):
                 self.assertEqual(counter.count_words(edge), words)

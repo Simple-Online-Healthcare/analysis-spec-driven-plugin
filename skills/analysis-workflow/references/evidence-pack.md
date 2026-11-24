@@ -67,9 +67,9 @@ with the correction, reason and replacement file using the verifier's **Gate sco
 preserve their original verdicts rather than silently substituting or hiding failures.
 
 Name the **current report**: one path, so nobody has to choose between drafts. Under
-"Review", record each checker's verdict with the SHA-256 of the report, chart and
-`methodology.md` files it checked. A file whose hash no longer matches needs the matching
-recheck.
+"Review", record each checker's verdict with the full SHA-256 digest of each report,
+chart and `methodology.md` file it checked. A file whose hash no longer matches needs the
+matching recheck.
 
 ### final_verification.md
 Written after Verify and Review: the verdict per results version using **Verdict rules**
