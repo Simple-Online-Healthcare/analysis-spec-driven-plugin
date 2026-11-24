@@ -34,10 +34,11 @@
 | Ticketing | Jira project `DATA`. Ticket IDs go in commits, PRs and `methodology.md`, never in the report body. |
 | Warehouse and role | Snowflake, the user's own read-only analyst role. Each person runs analyses under their own login. No shared automated account is used yet. |
 | Scratch location | A private working area that only the person can write to, such as their own personal schema. Name the exact pattern for your warehouse. |
-| Length | Target 1,500 words for the main report. Hard maximum 2,000 words, tables and captions included. |
+| Length | Target 1,500 words for the main report. Hard maximum 2,000 words. Counted only with the `report-writing` skill's `scripts/count_words.py`; that script defines what counts. This row is the only place the limit is set. |
 | Reading time | Up to about 10 minutes of reading plus about 2 for the visuals. 12 minutes at most. |
 | Minimum visuals | 1 per report (a chart or a flowchart; a table alone does not count) |
 | Chart tooling | Python standard library builds SVG; `rsvg-convert` converts to PNG. Flowcharts: mermaid via `npx`, or the same SVG approach. |
+| Roadmap location | Optional. Where the team's roadmap lives, for example a Confluence page. Used to say where each decision or open question sits on it. |
 | Small-count handling | Decided per analysis in the Design phase and recorded in `methodology.md`. |
 | Sensitive data rule | No personal identifiers, emails, free text or record-level health detail in reports, results files or skill resources. Saved results are aggregates only. |
 | PR template | The evidence repository's template if it has one, otherwise the summary below in the workflow skill |
@@ -126,10 +127,10 @@ explicitly accepted by the user.
   understand it.
 - At least the Profile's minimum number of **visuals**, and never fewer than one. Each is
   rendered and inspected.
-- Within the Profile's **length**: target 1,500 words, hard maximum 2,000.
+- Within the Profile's **length**, counted with the shared word counter.
 - No ticket IDs, named colleagues, query IDs or personal identifiers in the body.
-- Passes the plain-English test: a non-technical reader can state the question, the main
-  finding, why it matters and the next action.
+- Passes the **executive read**: a reader given only the report and its charts can say
+  what is happening, how big it is, what decision the evidence supports and why.
 - Follows the writing style in §12.
 
 **Fail if:** the `report-checker` returns any High issue that has not been fixed.
@@ -143,8 +144,16 @@ explicitly accepted by the user.
 - Keep measured impact separate from potential opportunity. Never invent recovered
   revenue, retained customers or an improvement that was not measured.
 - Recommend only actions connected to demonstrated findings or stated uncertainties.
+- A label, headline or chart title claims no more than was measured. A missing record is
+  reported as missing, not as a confirmed failure.
+- A report names no owners, leads or teams as decision makers, even as proposals.
+  Ownership belongs in the planning document.
+- A roadmap item "covers" a question only when it names that exact work. Otherwise say
+  "related, not covered" or "not scheduled". Write that work will be done only when a
+  delivery commitment is recorded.
 
-**Fail if:** the report states or implies an effect the evidence does not establish.
+**Fail if:** the report states or implies an effect, certainty, owner or commitment the
+evidence does not establish.
 
 ---
 
@@ -163,6 +172,9 @@ Before a PR can merge:
 - The Review phase has no open High issues. A `method-reviewer` High issue is closed by a
   fix or by the user's explicit acceptance, recorded in `final_verification.md`
   (see §5). A `report-checker` or `writing-checker` High issue is closed only by a fix.
+- Each `report-checker` and `writing-checker` result names the SHA-256 of the report and
+  chart files it checked, and those match the files being handed over. A later edit needs
+  the matching recheck.
 - The user has approved the report.
 
 **Fail if:** any of the above is not met. The workflow never merges a PR.
@@ -222,8 +234,9 @@ non-technical colleague and a technical colleague both understand it on the firs
   explain it in brackets the first time it appears. Common swaps are listed in
   `skills/report-writing/references/plain-writing.md`.
 - **Explain the implication.** Under every finding, write an **Implication** that says what
-  the finding means for the business and what happens if nobody acts. Write it as if the
-  reader missed why the finding matters. Do not repeat the finding in new words.
+  the finding means for the business and what happens if nobody acts, or which decision it
+  changes. Write it as if the reader missed why the finding matters. Do not repeat the
+  finding in new words.
 - **Counts before percentages.** Give the real number and the total it comes from, for
   example "412 of 1,830 customers". A count shows the whole group. A percentage hides how
   many people stand behind it. A percentage may follow in brackets. Never give one alone.

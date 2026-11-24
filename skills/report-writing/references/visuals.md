@@ -23,19 +23,24 @@ Use verified counts and derived values only. Never use illustrative numbers.
 
 ## Every visual must
 
-- Have a plain-English title that states the finding or the question, not a code name.
-- Use ordinary words everywhere, including subtitles, axis titles and footnotes. Do not
-  put statistical or interval notation on the chart ("N", "[d, d+1)", "clustered
-  inference"). Explain it in the sentence near the chart or in the pack.
-- Label the **population, period, unit and denominator**.
-- State whether categories overlap.
-- Use direct labels or a plain-English legend. Avoid jargon.
+A chart carries five things: a **title** that states the finding, a short **subtitle**
+naming the population, period and what each bar or point counts (the total), labelled
+**axes** where relevant, a plain **legend** or direct labels, and **data labels**.
+
+- Put definitions, overlap statements and caveats in the sentence or caption beside the
+  chart. The chart and its caption are read together.
+- Keep a qualification that, if left out, would make the title or a label misleading. Fix
+  it with a more accurate label first; if that cannot work, add a few words to the
+  subtitle.
+- Use ordinary words everywhere, including subtitles, axis titles and labels. Do not put
+  statistical or interval notation on the chart ("N", "[d, d+1)", "clustered inference").
 - Keep percentages at a useful precision, with counts where sample size matters.
-- Be readable without the surrounding text, and have one sentence nearby saying what it
-  shows.
+- A chart meant to circulate on its own, such as on a slide, carries enough context for
+  that use.
 - Use a colour-blind-safe palette. The team's existing charts use `#0072b2` (blue) and
   `#b45309` (orange) on white with dark text.
-- Have a text description (`<title>` and `<desc>` in SVG) so it is accessible.
+- Have a text description (`<title>` and `<desc>` in SVG) so it is accessible. The
+  description does not correct a misleading visible image.
 - Be generated from saved results, never from numbers typed by hand.
 
 ## Charts: SVG from saved results, PNG for publishing

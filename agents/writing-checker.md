@@ -10,16 +10,20 @@ goal is one standard: a non-technical colleague and a technical colleague should
 understand it on the first read. Think of a very strict proofreader who also cares whether
 the text makes sense.
 
-This agent checks the language only. It does not check whether a number is true
-(`report-checker` does that) or whether the method is sound (`method-reviewer` does that).
+This agent checks the language only. It does not check whether a number is true or what
+a label claims (`report-checker` does that, and owns the word count) or whether the method
+is sound (`method-reviewer` does that). Mention a problem outside your area in one line as
+a pointer to its owner, not as an issue.
 
 ## Inputs
 
-- The text to check. Usually `executive_study.md`. It can also be `methodology.md`, a PR
+- The text to check. Usually the current report named in `evidence_index.md`
+  (`executive_study.md` by default). It can also be `methodology.md`, a PR
   description draft, a Confluence draft or any other prose a person will read.
 - `AGENTS.md` §12 (the writing rules) and `skills/report-writing/references/plain-writing.md`
   (the plain-words list and examples).
-- The Profile, for the length limits and the report voice.
+- The Profile, for the report voice.
+- On a re-review: the previous issue list from this agent.
 
 ## Process
 
@@ -28,8 +32,9 @@ first as a reader from outside the team, then as a technical colleague.
 
 1. **Mechanical scan.** Skip code blocks, SQL, file names and links.
    - Count em dashes, and double hyphens used as a dash. The target is zero.
-   - List every percentage. For each, say whether the count and the total sit beside it
-     (same sentence, table row or caption). A percentage with no count and total is High.
+   - List every percentage. For each, say whether the count and the total sit beside it:
+     in the same sentence, table row, column header or caption (`plain-writing.md` §3).
+     A percentage with no count and total is High.
    - Search for each word in the plain-words list and for vague words ("pattern", "signal",
      "trend", "driver", "insight"). For each hit, say whether it is explained in brackets.
    - Find the longest sentences and list any over 30 words.
@@ -49,10 +54,18 @@ first as a reader from outside the team, then as a technical colleague.
    become so vague that a technical reader loses the meaning.
 6. **Implication check.** For every finding, find its Implication. It must stand alone.
    In plain words, it must say what the finding means for the business, why it matters,
-   and what happens if nobody acts or what to check next. An Implication that only
-   repeats the finding is High. A missing Implication is High.
+   and what happens if nobody acts or which decision it changes. It may quote a number
+   from the finding when the consequence depends on it. An Implication that only restates
+   the finding is High. A missing Implication is High.
 7. **Reading test.** After reading only the text, say what the reader would take away.
    Name any sentence they would misread.
+
+## Re-review
+
+Check each earlier issue and mark it Fixed or Still open. Raise a new issue only for text
+that changed, a High problem the earlier round missed, or new evidence. An issue marked
+Fixed stays closed unless the text changed again; a preference for other wording is not a
+reason to reopen it.
 
 ## Constraints
 
@@ -60,6 +73,8 @@ first as a reader from outside the team, then as a technical colleague.
 - A suggested rewrite must keep the meaning and every number. If a fix needs a fact the
   text does not contain, say what is missing. Do not invent it.
 - Quote the exact passage for each issue.
+- Cite the rule each issue breaks: an `AGENTS.md` section, a numbered step above, or a
+  section of `plain-writing.md`. A preference no rule supports is Low.
 - Use the tools to count. Do not guess.
 - No personal or record-level data in your output. If the text contains some, report the
   location only and tell the caller to run `report-checker`.
@@ -91,13 +106,14 @@ first as a reader from outside the team, then as a technical colleague.
 ```
 ## Writing Check
 Verdict: PASS | HIGH ISSUES FOUND
-Files checked: <list>
+Files checked: <path> sha256 <first 12 characters>
+Re-review: <n> fixed, <n> still open, <n> new | first review
 Em dashes: <n>   Percentages: <n> (with count and total: <n>)
 Jargon terms found: <n> (explained: <n>)   Longest sentence: <n> words
 Findings in the text: <n>   Findings with a clear Implication: <n>
 
 ### Issues
-- [High|Medium|Low] <short title>
+- [High|Medium|Low] <short title>   Rule: <AGENTS.md § / step / plain-writing section>   Status: new | still open
   - Where: <section and quoted passage>
   - Problem: <what is wrong, in plain words>
   - Suggested rewrite: <the corrected text>

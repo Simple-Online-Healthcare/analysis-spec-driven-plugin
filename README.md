@@ -15,8 +15,9 @@ re-run, or how to write the report. This plugin gives every analysis the same sh
   your analysis repository.
 - **Verify** re-runs the saved SQL (or, when sources have moved, checks the saved results
   and SQL fingerprints) so a result can be trusted.
-- **Write** produces a plain-English report for non-technical readers, with visuals, in
-  1,500 words (hard maximum 2,000).
+- **Write** produces a plain-English report for non-technical readers, with visuals,
+  within the Profile's length. It leads with the finding that most changes the decision
+  and ends with the decisions the evidence supports.
 - **Review** uses independent read-only sub-agents. The workflow never merges a PR.
 - **Setup** is built in: after installing, ask your agent to "set up the analysis
   plugin". It checks your tools, repository, Snowflake role and publishing access, fixes
@@ -33,10 +34,10 @@ here.
 | `AGENTS.example.md` | The mandatory, blocking rules plus an **Analysis Profile** (the only team-specific block). Copy to your analysis repo root as `AGENTS.md` and edit the Profile. |
 | `skills/analysis-workflow/` | The workflow skill. Routes by intent and runs the phases. |
 | `skills/analysis-setup/` | The instruction book. Checks a new teammate's setup step by step and tells them exactly what to do. |
-| `skills/report-writing/` | How reports are written: plain English, visuals, length, template, Confluence publishing. Includes `references/plain-writing.md`: the plain-words list and writing rules. |
+| `skills/report-writing/` | How reports are written: plain English, visuals, length, template, Confluence publishing. Includes `references/plain-writing.md` (the plain-words list and writing rules) and `scripts/count_words.py` (the one word count every checker uses). |
 | `agents/replay-verifier` | Re-runs saved SQL and compares to saved results. |
 | `agents/method-reviewer` | Checks the design against the method rules. |
-| `agents/report-checker` | Checks words, visuals, traceability and plain English. |
+| `agents/report-checker` | Reads the report as a decision maker first, then checks words, visuals, traceability and what each claim means. |
 | `agents/writing-checker` | Checks grammar, flow, tone and ease of understanding, and enforces the writing rules (no jargon, counts before percentages, no em dash, clear implications). |
 | `docs/field-feedback.md` | Every rule tied to a failure that was actually observed. Add to it. |
 
