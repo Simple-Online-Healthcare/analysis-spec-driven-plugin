@@ -38,7 +38,7 @@
 | Reading time | Up to about 10 minutes of reading plus about 2 for the visuals. 12 minutes at most. |
 | Minimum visuals | 1 per report (a chart or a flowchart; a table alone does not count) |
 | Chart tooling | Python standard library builds SVG; `rsvg-convert` converts to PNG. Flowcharts: mermaid via `npx`, or the same SVG approach. |
-| Roadmap location | Optional. Where the team's roadmap lives, for example a Confluence page. Used to say where each decision or open question sits on it. |
+| Roadmap location | Optional. Where the team's roadmap lives, for example a Confluence page. Leave out if analyses are often not roadmap work; reports then show no roadmap column. |
 | Small-count handling | Decided per analysis in the Design phase and recorded in `methodology.md`. |
 | Sensitive data rule | No personal identifiers, emails, free text or record-level health detail in reports, results files or skill resources. Saved results are aggregates only. |
 | PR template | The evidence repository's template if it has one, otherwise the summary below in the workflow skill |
@@ -149,8 +149,8 @@ explicitly accepted by the user.
 - A report names no owners, leads or teams as decision makers, even as proposals.
   Ownership belongs in the planning document.
 - A roadmap item "covers" a question only when it names that exact work. Otherwise say
-  "related, not covered" or "not scheduled". Write that work will be done only when a
-  delivery commitment is recorded.
+  "related, not covered", or say nothing about the roadmap. Write that work will be done
+  only when a delivery commitment is recorded.
 
 **Fail if:** the report states or implies an effect, certainty, owner or commitment the
 evidence does not establish.
