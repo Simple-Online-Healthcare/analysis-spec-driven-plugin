@@ -16,28 +16,46 @@ import sys
 
 FENCE = re.compile(r"\s*(`{3,}|~{3,})")
 RULE_ROW = re.compile(r"\s*\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)*\|?\s*$")
+DEFINITION = re.compile(r"\s*\[([^\]^][^\]]*)\]:\s")
+
+
+def label(name):
+    return " ".join(name.lower().split())
 
 
 def visible_text(markdown):
-    # Comments go first, so a fence marker inside a comment cannot hide later text.
-    markdown = re.sub(r"<!--.*?-->", " ", markdown, flags=re.S)
-    lines, fence = [], None
+    # One pass: comment markers inside fenced code stay literal, and fence markers inside
+    # a comment cannot open a code block.
+    lines, definitions, fence, comment = [], set(), None, False
     for line in markdown.splitlines():
+        if fence:
+            closer = FENCE.match(line)
+            if closer and closer.group(1)[0] == fence[0] and len(closer.group(1)) >= len(fence) \
+                    and not line[closer.end():].strip(" \t"):
+                fence = None
+            continue
+        if comment:
+            if "-->" not in line:
+                continue
+            line, comment = line.split("-->", 1)[1], False
+        line = re.sub(r"<!--.*?-->", " ", line)
+        if "<!--" in line:
+            line, comment = line.split("<!--", 1)[0], True
         opener = FENCE.match(line)
-        if opener and fence is None:
+        if opener:
             fence = opener.group(1)
             continue
-        if opener and fence:
-            run = opener.group(1)
-            closes = run[0] == fence[0] and len(run) >= len(fence)
-            if closes and not line[opener.end():].strip(" \t"):
-                fence = None
-                continue
-        if fence or RULE_ROW.match(line) or re.match(r"\s*\[[^\]^][^\]]*\]:\s", line):
+        definition = DEFINITION.match(line)
+        if definition:
+            definitions.add(label(definition.group(1)))
             continue
-        lines.append(line)
+        if not RULE_ROW.match(line):
+            lines.append(line)
     text = "\n".join(lines)
     text = re.sub(r"!\[[^\]]*\](\([^)]*\)|\[[^\]]*\])", " ", text)
+    text = re.sub(r"!\[([^\]]*)\](?![(\[])",
+                  lambda image: " " if label(image.group(1)) in definitions else image.group(0),
+                  text)
     text = re.sub(r"\[([^\]]*)\](\([^)]*\)|\[[^\]]*\])", r"\1", text)
     text = re.sub(r"<[A-Za-z/!][^>]*>", " ", text)
     return text.replace("|", " ")

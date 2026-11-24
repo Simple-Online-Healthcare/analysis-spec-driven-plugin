@@ -172,9 +172,9 @@ Before a PR can merge:
 - The Review phase has no open High issues. A `method-reviewer` High issue is closed by a
   fix or by the user's explicit acceptance, recorded in `final_verification.md`
   (see §5). A `report-checker` or `writing-checker` High issue is closed only by a fix.
-- Each `report-checker` and `writing-checker` result names the SHA-256 of the report and
-  chart files it checked, and those match the files being handed over. A later edit needs
-  the matching recheck.
+- Each `report-checker` and `writing-checker` result names the SHA-256 of the report,
+  chart and `methodology.md` files it checked, and those match the files being handed
+  over. A later edit needs the matching recheck.
 - The user has approved the report.
 
 **Fail if:** any of the above is not met. The workflow never merges a PR.

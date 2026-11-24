@@ -169,6 +169,10 @@ class PluginContractTests(unittest.TestCase):
             ("```\n```python\nhidden\n```\nVisible here", 2),
             ("<!--\n```\n-->\nVisible paragraph here", 3),
             ("See [the pack][ref] now.", 4),
+            ("![chart alt words]\n\n[chart alt words]: visuals/a.png\n\nBody text.", 2),
+            ("![literal words] stays", 3),
+            ("```\n<!--\n```\nVisible after\n\n<!-- real -->\nMore words here", 5),
+            ("Keep this <!-- start\nhidden\n--> and this", 4),
         ):
             with self.subTest(edge=edge):
                 self.assertEqual(counter.count_words(edge), words)

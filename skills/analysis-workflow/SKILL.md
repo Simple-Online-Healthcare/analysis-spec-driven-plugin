@@ -241,15 +241,15 @@ warehouse re-run.
 
 1. Check `git status`. Stage only this analysis: the pack, the visuals and the report. No
    scratch files, no record-level extracts. Before committing, compare the SHA-256 of the
-   report and chart files with the review hashes in `evidence_index.md`; a mismatch needs
-   the matching recheck first (`AGENTS.md` §8).
+   report, chart and `methodology.md` files with the review hashes in `evidence_index.md`;
+   a mismatch needs the matching recheck first (`AGENTS.md` §8).
 2. Commit with the ticket ID if there is one. Push the branch and open a PR to the base
    branch. The body carries: the question, the agreed design, the verification result,
    the known limits, and the visuals as images.
 3. Publish to Confluence **only with explicit permission**, following
    `report-writing/references/confluence-publish.md`. Before publishing, confirm the
-   report and chart hashes still match the recorded review, and that no placeholder or
-   local file link remains in the page. Draft first, reuse the existing
+   report, chart and `methodology.md` hashes still match the recorded review, and that no
+   placeholder or local file link remains in the page. Draft first, reuse the existing
    page, never create numbered duplicates. Complete its **After publishing** step so
    the committed pack and PR both link to the page.
 4. Update the ticket. **Never merge.**
