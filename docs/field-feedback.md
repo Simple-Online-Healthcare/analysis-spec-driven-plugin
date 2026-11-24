@@ -280,3 +280,73 @@ replacement semantics stay in the scenario review instead of exact-prose asserti
 
 - `writing-checker` and `analysis-setup` have not yet been run by a teammate in a fresh
   session. Metadata and structure are tested; behaviour is not.
+
+## Joint subscription report: decisions, charts and review rounds (November 2026)
+
+Recorded while refining one report that joined three earlier studies, 19 to 24 November
+2026. Study figures stay in the team's private analysis repository.
+
+### Observations
+
+1. **Reports ended in a to-do list.** The template's "What should happen next" table made
+   most items "find out more", so a finished report looked unfinished.
+2. **Proposed owners reached the report.** "Do not invent owners" did not stop the agent
+   copying proposed owners from the pack and labelling them "proposed". That still reads
+   as an assignment.
+3. **The executive read failed although every check passed.** Read as a decision maker
+   with five minutes, the first draft hid its most consequential number mid-paragraph,
+   left it out of the summary, led with method and definitions, and gave two of four
+   findings that were only warnings.
+4. **Charts met the rules by adding text.** "Label population, period, unit and
+   denominator; be readable without the text" was met with 5 to 10 line footnote blocks
+   inside each image. The chart text added about 300 words and checkers disagreed on
+   whether it counted.
+5. **Two word counts for one report.** Checkers counted about 1,800 or about 2,100 words
+   depending on chart text and markdown. The length limit was written in five places.
+6. **Long coined labels, and one short label that overstated.** Accurate terms were heavy
+   to read; the shorter "went through" claimed more than the records checked.
+7. **Shortening dropped evidence that changed the answer.** Overall coverage of a field
+   stayed in; much better coverage in a newer subset was cut. That changes "analyse the
+   usable recent records" into "collect more first".
+8. **Five review rounds.** Each rewrite drew new High issues and some fixes contradicted
+   earlier ones (for example, whether an Implication may quote the finding's number, and
+   whether counts-before-percentages applies to headings).
+9. **Review status was not tied to a file version.** The writing check was not rerun after
+   the last edits, and nothing recorded which version it had passed.
+
+### Correct pattern
+
+- Frame records what the analysis must settle. The report leads with the finding that
+  most changes the decision and closes with "What this report supports": decisions, with
+  exact roadmap status, and open questions only where they could change a decision.
+- No owners, leads or teams in the report. Roadmap "covered" only when the item names the
+  work.
+- `report-checker` runs an executive read on the report and charts before anything else.
+- A chart carries title, subtitle, axes, legend and data labels; caveats go beside it.
+- One word counter, one place for the limit.
+- The shortest familiar label that keeps what was measured.
+- Checkers own one area each, cite a rule, do not reopen fixed issues without a change,
+  and stop after two automatic rounds. Review verdicts record file hashes.
+
+### Plugin actions taken
+
+| File | Change |
+|---|---|
+| `AGENTS.example.md` | Profile: roadmap location, length counted by the script and set only here. §6 executive read. §7 labels, no owners, exact roadmap claims. §8 review hashes must match |
+| `skills/report-writing/SKILL.md` | Lead rule, opening shape, caution-only section, labels, define in place with method after findings, limits state their consequence, "Shorten without changing the answer", "What this report supports" |
+| `skills/report-writing/references/report-template.md` | New order; "What this report supports" replaces "What should happen next"; optional "Numbers not to over-read" |
+| `skills/report-writing/references/visuals.md` | Five things on a chart; caveats in the caption; exception when leaving one out would mislead |
+| `skills/report-writing/references/plain-writing.md` | New §2 labels with a "must not imply" table; churn and retention swaps name what was measured; count rule scope for tables and headings; Implication may quote the finding's number |
+| `skills/report-writing/scripts/count_words.py` | New stdlib word counter used by every checker |
+| `agents/report-checker.md` | Executive read first; meaning and decision-use checks; rule citations; re-review rule; file hashes in output |
+| `agents/writing-checker.md` | Length moved to `report-checker`; count rule scope; rule citations; re-review rule; file hashes |
+| `skills/analysis-workflow/SKILL.md` | Frame records what must be settled and roadmap items; Write and Review updated; two-round stop; recheck in proportion; pre-publish hash and link check |
+| `skills/analysis-workflow/references/evidence-pack.md` | Optional `report/` folder; one named current report; review verdicts with hashes |
+| `tests/` | Counter, single length source and report-closing contract tests; 13 new review cases |
+
+### Open
+
+- The new checker behaviour has not yet been run on a real report in a fresh session.
+  Structure is tested; behaviour is not. The review cases above are the semantic check.
+- The `footnotes()` helper sits in the study's own chart script, not in the plugin. Leave
+  the preserved evidence as it is; new charts follow `visuals.md`.

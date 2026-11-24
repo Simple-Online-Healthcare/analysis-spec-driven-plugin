@@ -16,6 +16,7 @@ analyses/<dd-mm-yy>-<slug>/
   evidence_index.md          navigation and provenance for every artifact
   final_verification.md      what was checked, what was not, what remains limited
   executive_study.md         the report (see report-writing)
+  report/                    optional: a report rewritten after verification, with its charts
   visuals/                   PNG, SVG and flow-diagram source used in the report
   render_visuals.py          stdlib script that builds the visuals from saved results
 ```
@@ -26,7 +27,8 @@ the same stem across the `.sql`, `_results.json` and `.md` of one step.
 ## What each file must contain
 
 ### methodology.md
-The question, the decision informed, the reader and the stage requested; the agreed
+The question, the decision informed, the alternatives considered, what the analysis must
+settle, what is out of scope, the reader and the stage requested; the agreed
 design from the Design phase (decisions, population, unit, denominator, dates, cutoff,
 follow-up, exclusions, Done-when checks, visual brief, small-count handling); known
 limits. Ticket IDs belong here, not in the report.
@@ -63,6 +65,11 @@ what it did not do); scratch objects created; known limits. Map every report cla
 visual to the exact results filename and its SQL/base revision. Mark superseded results
 with the correction, reason and replacement file using the verifier's **Gate scope** rule;
 preserve their original verdicts rather than silently substituting or hiding failures.
+
+Name the **current report**: one path, so nobody has to choose between drafts. Under
+"Review", record each checker's verdict with the full SHA-256 digest of each report,
+chart and `methodology.md` file it checked. A file whose hash no longer matches needs the
+matching recheck.
 
 ### final_verification.md
 Written after Verify and Review: the verdict per results version using **Verdict rules**

@@ -46,6 +46,19 @@ Assume a complete pack and matching fingerprints/cutoff unless a case says other
 | A sentence of 34 words, otherwise clear | writing-checker Medium |
 | Correct text with one doubled word | writing-checker Low |
 | writing-checker suggests a rewrite that needs a fact the text lacks | It names the missing fact and does not invent one |
+| A short label ("went through") is used where only payment records were checked | report-checker High: the label says more than was measured; fix names the records checked |
+| Summary omits the finding that most changes the decision | report-checker High: executive read fails |
+| Summary leads with the largest number; a smaller confirmed failure that drives the decision appears second | report-checker Medium: lead chosen by size |
+| "No matching message record" is rewritten as "these patients were not messaged" | report-checker High: missing record presented as a confirmed failure |
+| A shortened draft drops a newer period whose usable data changes the recommendation | report-checker High: cut evidence would change the recommendation |
+| A related roadmap item does not name the work; the report says it "will be done soon" | report-checker High (`AGENTS.md` §7); fix: "related, not covered by `<item>`" |
+| The decisions table names a proposed owner or lead | report-checker High (`AGENTS.md` §7) |
+| An open question would not change any decision | report-checker Medium: move it to the pack |
+| A chart image holds a five-line block of definitions | report-checker Medium: move them to the caption |
+| A table caption gives the total; cells show counts and percentages | Passes the count rule |
+| Review hashes in the evidence index differ from the current report | Gate not met (`AGENTS.md` §8); run the recheck that matches the edit |
+| Re-review: an issue marked Fixed, text unchanged, checker now prefers other wording | Not reopened and not raised again |
+| Clear, accurate report within length, every claim traced | PASS; no High or Medium issues and no rewrites beyond optional Low ones |
 | New teammate starts a session before the plugin is registered | analysis-setup asks for a new session and does not continue |
 | Session still has other roles active | analysis-setup runs `USE SECONDARY ROLES NONE` and confirms only the Profile role is active before any query |
 | Person lacks the Profile's Snowflake role | analysis-setup gives a ready-to-send message for the administrator and marks the check not ready |
