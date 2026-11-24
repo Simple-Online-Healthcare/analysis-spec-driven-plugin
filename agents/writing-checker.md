@@ -32,9 +32,10 @@ first as a reader from outside the team, then as a technical colleague.
 
 1. **Mechanical scan.** Skip code blocks, SQL, file names and links.
    - Count em dashes, and double hyphens used as a dash. The target is zero.
-   - List every percentage. For each, say whether the count and the total sit beside it:
-     in the same sentence, table row, column header or caption (`plain-writing.md` §3).
-     A percentage with no count and total is High.
+   - List every percentage. For each, say where its count and total are. A total stated in
+     a table's caption or column header covers the cells beneath it; otherwise the count
+     and total sit in the same sentence or table row (`plain-writing.md` §3). A
+     percentage with no count and total is High.
    - Search for each word in the plain-words list and for vague words ("pattern", "signal",
      "trend", "driver", "insight"). For each hit, say whether it is explained in brackets.
    - Find the longest sentences and list any over 30 words.
@@ -106,7 +107,7 @@ reason to reopen it.
 ```
 ## Writing Check
 Verdict: PASS | HIGH ISSUES FOUND
-Files checked: <path> sha256 <first 12 characters>
+Files checked: <path> sha256 <first 12 characters>, one line per file (report, methodology.md, others)
 Re-review: <n> fixed, <n> still open, <n> new | first review
 Em dashes: <n>   Percentages: <n> (with count and total: <n>)
 Jargon terms found: <n> (explained: <n>)   Longest sentence: <n> words

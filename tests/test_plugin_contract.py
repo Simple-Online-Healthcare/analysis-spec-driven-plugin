@@ -4,6 +4,7 @@ import importlib.util
 import json
 from pathlib import Path
 import re
+import time
 import unittest
 from xml.etree import ElementTree
 
@@ -164,9 +165,17 @@ class PluginContractTests(unittest.TestCase):
             ("[^1]: This footnote is shown to readers.", 7),
             ("[ref]: https://x.y/z\n\n----\n", 0),
             ("````\n```\ninner\n```\n````\nafter", 1),
+            ("![alt words here][fig1]\n\nBody text.", 2),
+            ("```\n```python\nhidden\n```\nVisible here", 2),
+            ("<!--\n```\n-->\nVisible paragraph here", 3),
+            ("See [the pack][ref] now.", 4),
         ):
             with self.subTest(edge=edge):
                 self.assertEqual(counter.count_words(edge), words)
+        for line in ("-" * 3000 + "x", "--- " * 40 + "x", "|---|:---:|", "---"):
+            started = time.perf_counter()
+            counter.visible_text(line)
+            self.assertLess(time.perf_counter() - started, 0.5, line[:20])
 
     def test_length_limit_lives_only_in_profile(self):
         rules = text("AGENTS.example.md")

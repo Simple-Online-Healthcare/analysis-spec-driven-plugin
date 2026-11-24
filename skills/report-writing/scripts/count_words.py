@@ -14,25 +14,30 @@ import re
 import sys
 
 
+FENCE = re.compile(r"\s*(`{3,}|~{3,})")
+RULE_ROW = re.compile(r"\s*\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)*\|?\s*$")
+
+
 def visible_text(markdown):
+    # Comments go first, so a fence marker inside a comment cannot hide later text.
+    markdown = re.sub(r"<!--.*?-->", " ", markdown, flags=re.S)
     lines, fence = [], None
     for line in markdown.splitlines():
-        opener = re.match(r"\s*(`{3,}|~{3,})", line)
-        if opener:
+        opener = FENCE.match(line)
+        if opener and fence is None:
+            fence = opener.group(1)
+            continue
+        if opener and fence:
             run = opener.group(1)
-            if fence is None:
-                fence = run
-                continue
-            if run[0] == fence[0] and len(run) >= len(fence):
+            closes = run[0] == fence[0] and len(run) >= len(fence)
+            if closes and not line[opener.end():].strip(" \t"):
                 fence = None
                 continue
-        if fence or re.match(r"\s*\|?(\s*:?-{3,}:?\s*\|?)+\s*$", line) \
-                or re.match(r"\s*\[[^\]^][^\]]*\]:\s", line):
+        if fence or RULE_ROW.match(line) or re.match(r"\s*\[[^\]^][^\]]*\]:\s", line):
             continue
         lines.append(line)
     text = "\n".join(lines)
-    text = re.sub(r"<!--.*?-->", " ", text, flags=re.S)
-    text = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", text)
+    text = re.sub(r"!\[[^\]]*\](\([^)]*\)|\[[^\]]*\])", " ", text)
     text = re.sub(r"\[([^\]]*)\](\([^)]*\)|\[[^\]]*\])", r"\1", text)
     text = re.sub(r"<[A-Za-z/!][^>]*>", " ", text)
     return text.replace("|", " ")
