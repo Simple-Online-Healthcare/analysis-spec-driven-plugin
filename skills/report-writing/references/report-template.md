@@ -37,11 +37,12 @@ Short bullets for figures that look like findings but cannot support a decision,
 with the reason in one line.
 
 ## What this report supports
-| Decision | Rests on | Where it sits |
-|---|---|---|
-| Supported: ... | Finding 1 | Not scheduled |
-| Not supported yet: ... | Finding 2 | Related, not covered by `<roadmap item>` |
+| Decision | Rests on |
+|---|---|
+| Supported: ... | Finding 1 |
+| Not supported yet: ... | Finding 2 |
 
+Add a "Where it sits" column only when a roadmap item relates to a decision (`SKILL.md`).
 One sentence of guardrails where a change is supported.
 
 ## How it was measured

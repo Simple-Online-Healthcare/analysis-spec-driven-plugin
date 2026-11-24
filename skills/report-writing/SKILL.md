@@ -113,13 +113,12 @@ guidance: `references/visuals.md`.
 ## Finish with what this report supports
 
 Close with a short table of **decisions, not tasks**: what the evidence supports now, and
-what it does not support. Columns: the decision, the finding it rests on, and where it
-sits on the roadmap.
+what it does not support. Columns: the decision and the finding it rests on.
 
-- **Where it sits:** if the Profile names a **Roadmap location**, use the items recorded
-  in `methodology.md` during Frame and write one
-  of: covered by `<item>` (the item names this exact work), related, not covered by
-  `<item>`, not scheduled. If the roadmap was not read, write "roadmap not checked".
+- **Where it sits (optional column):** add it only when `methodology.md` records a
+  roadmap item that relates to a decision. Write covered by `<item>` (the item names this
+  exact work) or related, not covered by `<item>`. Work that was never roadmap work needs
+  no column and no "not scheduled" label.
 - **Open questions.** Include an unresolved question only when its answer could change
   the conclusion, the recommended action or its scope. Explain what it prevents deciding,
   usually in a sentence beside the affected finding or decision. Do not turn it into an

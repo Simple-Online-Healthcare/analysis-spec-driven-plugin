@@ -70,9 +70,9 @@ Record the full SHA-256 of the report, of each chart image and of `methodology.m
    as a confirmed failure (`plain-writing.md` §2). Check that a count says what it counts.
 7. **Decision use.** "What this report supports" lists decisions, not tasks. Each open
    question says what it prevents deciding; one that would not change the decision does
-   not belong. Each roadmap status matches the items recorded in `methodology.md`:
+   not belong. Any roadmap status matches the items recorded in `methodology.md`:
    "covered" only when the item names this work, and no "will be done" without a
-   recorded commitment. Each limitation says what it
+   recorded commitment. A report with no roadmap column is fine. Each limitation says what it
    prevents and what it does not. Evidence that qualifies a recommendation, or a newer
    usable period, has not been cut (`SKILL.md`, "Shorten without changing the answer").
    Measured impact is kept apart from potential opportunity.

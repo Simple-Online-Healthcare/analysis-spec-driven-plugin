@@ -350,3 +350,11 @@ Recorded while refining one report that joined three earlier studies, 19 to 24 N
   Structure is tested; behaviour is not. The review cases above are the semantic check.
 - The `footnotes()` helper sits in the study's own chart script, not in the plugin. Leave
   the preserved evidence as it is; new charts follow `visuals.md`.
+
+### Follow-up: roadmap column made optional
+
+Much analysis work is requested by people whose work is not on the team roadmap. A
+mandatory "Where it sits" column filled every such report with "roadmap not checked" or
+"not scheduled", which reads as a gap. The column now appears only when `methodology.md`
+records a related roadmap item. The rule against claiming work "will be done" without a
+recorded commitment is unchanged (`AGENTS.md` §7).

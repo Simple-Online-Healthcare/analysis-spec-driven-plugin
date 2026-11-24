@@ -52,6 +52,7 @@ Assume a complete pack and matching fingerprints/cutoff unless a case says other
 | "No matching message record" is rewritten as "these patients were not messaged" | report-checker High: missing record presented as a confirmed failure |
 | A shortened draft drops a newer period whose usable data changes the recommendation | report-checker High: cut evidence would change the recommendation |
 | A related roadmap item does not name the work; the report says it "will be done soon" | report-checker High (`AGENTS.md` §7); fix: "related, not covered by `<item>`" |
+| No roadmap item relates to the work; "What this report supports" has no roadmap column | Passes; no "not scheduled" label needed |
 | The decisions table names a proposed owner or lead | report-checker High (`AGENTS.md` §7) |
 | An open question would not change any decision | report-checker Medium: move it to the pack |
 | A chart image holds a five-line block of definitions | report-checker Medium: move them to the caption |
