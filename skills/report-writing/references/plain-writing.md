@@ -103,7 +103,28 @@ Keep the claim inside what the evidence shows (`AGENTS.md` §7). Say "this sugge
 - Say plainly what is not known. Do not hide a limit in a footnote.
 - Respectful of the reader: explain, do not lecture.
 
-## 6. Before you hand text over
+## 6. Say exactly what was measured
+
+- **Use the business word of record for the outcome.** If the measure is conversion, write
+  "convert" and "conversion rate" throughout. Do not drift into "pay", "buy" or "sign up",
+  which each mean something narrower.
+- **Define the counting unit once, then keep one word for it.** For example: "a user is one
+  web browser on one device, which is how the experiment assigns groups". After that, write
+  "users", not "browsers", "visitors" and "people" in turn.
+- **Do not claim a state the data cannot see.** "Every user was signed in" is wrong if
+  accounts are created part-way through the journey. Say what is recorded ("every user has a
+  patient record, created during the assessment").
+- **Results tables show one number per cell.** Rates in the cells, counts in the caption or
+  a total row. A cell like "2,555 / 5,592 (45.7%)" is too busy to read in a table.
+- **Experiment results use one fixed table shape:** the rate per group, the relative
+  difference, then a row for the p-value to three decimal places marked "(statistically
+  significant)" or "(not statistically significant)" at the stated level, and a row for the
+  likely range at the stated confidence. Say whether the test was one-sided.
+- **State the consequence as the condition to break even.** "Lifetime value per new customer
+  must rise by at least 16% to stand still" is checkable. Multiples that cancel out of the
+  calculation (2x, 3x return on spend) add nothing.
+
+## 7. Before you hand text over
 
 - No jargon left, or each remaining term explained in brackets.
 - Every finding has an Implication that stands on its own.

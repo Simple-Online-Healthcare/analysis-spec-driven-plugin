@@ -166,5 +166,23 @@ class PluginContractTests(unittest.TestCase):
             self.assertIn(instruction, handover)
 
 
+    def test_session_learnings_are_rules(self):
+        visuals = text("skills/report-writing/references/visuals.md")
+        for rule in ("axis title on every axis", "no gridlines", "Do not print values",
+                     "mark known events", "headless Chrome"):
+            self.assertIn(rule.lower(), visuals.lower())
+        method = text("skills/analysis-workflow/references/method-rules.md")
+        self.assertIn("## 10. Before saying a measure moved: mix and seasonality", method)
+        self.assertIn("## 11. Experiments", method)
+        self.assertIn("$cro-experiment-analysis", method)
+        profile = text("AGENTS.example.md")
+        for row in ("| Naming conventions |", "| Data sources |", "| Experiment method |"):
+            self.assertIn(row, profile)
+        workflow = text("skills/analysis-workflow/SKILL.md")
+        self.assertIn("## Retrospective", workflow)
+        self.assertIn("Prefer semantic views", workflow)
+        self.assertIn("$cro-experiment-analysis", text("agents/method-reviewer.md"))
+        self.assertIn("labelled standard or custom", text("agents/report-checker.md"))
+
 if __name__ == "__main__":
     unittest.main()

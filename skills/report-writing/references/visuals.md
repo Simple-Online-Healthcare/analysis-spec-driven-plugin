@@ -18,12 +18,25 @@ exploration may inform this choice during Design.
 | A journey, process or decision path the reader must follow | Flowchart |
 | Which step in a process loses the most | Flowchart annotated with counts, or a funnel bar |
 
-One or two clear visuals beat a page of competing charts. Three is a typical maximum.
+One or two clear visuals beat a page of competing charts. Three is a typical maximum; more
+needs a reason stated in the visual brief.
 Use verified counts and derived values only. Never use illustrative numbers.
 
 ## Every visual must
 
 - Have a plain-English title that states the finding or the question, not a code name.
+- Have an **axis title on every axis that carries a value**, including the units ("Conversion
+  rate (%)", "Emails sent (thousands)"). A chart with no Y-axis title cannot be read.
+- Have **no gridlines**. Keep one plain baseline axis and a few tick labels.
+- Show the shape, not the figures. **Do not print values on bars or points.** Put exact
+  numbers in a table beside the chart, or in a hover tooltip (`<title>` on each SVG mark),
+  and in the caption where only two or three matter.
+- On a chart over time, **mark known events** (a release, an experiment's phases, a
+  promotion, a cut in ad spend) with a shaded band or a line and a short plain label.
+  Without them a reader reads every dip as a product problem.
+- **Leave out points built on small counts** instead of plotting a noisy rate, and state the
+  threshold in the caption ("days with fewer than 100 journeys are left blank"). Use `null`
+  for a gap, never zero or a joined-up line.
 - Use ordinary words everywhere, including subtitles, axis titles and footnotes. Do not
   put statistical or interval notation on the chart ("N", "[d, d+1)", "clustered
   inference"). Explain it in the sentence near the chart or in the pack.
@@ -53,6 +66,19 @@ that: no extra packages to install.
    ```bash
    rsvg-convert -w 1600 visuals/chart.svg -o visuals/chart.png
    ```
+
+   If `rsvg-convert` is not installed, headless Chrome gives the same result at 2x scale and
+   uses the system fonts (tested on macOS):
+
+   ```bash
+   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+     --force-device-scale-factor=2 --window-size=<width>,<height> \
+     --screenshot=visuals/chart.png visuals/chart.svg
+   ```
+
+   The check mode may live in the script that renders the report when charts and report are
+   built together (for example `render_report.py --check`). What matters is that one command
+   proves the visuals match the saved results.
 
    PNG is safer than SVG in Confluence.
 

@@ -28,10 +28,14 @@ traceability issue; identify every file actually checked in the output.
    hard maximum. Estimate reading time at 200 words per minute and add about 2 minutes for
    the visuals.
 2. **Visuals.** Count the visuals (a chart or a flowchart; a table does not count). Open
-   each rendered image. Check: a plain-English title; the population, period, unit and
+   each rendered image. Check: a plain-English title; an axis title on every value axis,
+   with units; no gridlines; no values printed on bars or points (exact figures belong in a
+   table or tooltip); known events marked on charts over time; small-count points left
+   blank with the threshold stated; the population, period, unit and
    denominator are labelled; overlap is stated where relevant; text is not cut off;
    labels do not overlap; a sentence nearby says what it shows. Check each chart's
-   numbers against the cited results version for that visual.
+   numbers against the cited results version for that visual. More than three visuals
+   needs a reason in the visual brief.
 3. **Traceability.** List every number in the report. Trace measured values (counts,
    percentages, differences) to a saved result. Trace study-period and design dates to
    `methodology.md` or the executed SQL. Report anything untraced or different from its
@@ -50,7 +54,9 @@ traceability issue; identify every file actually checked in the output.
    population, how it was measured, the main finding, why it matters and the next action?
    Say which of these you could not state, and where the report fails to support it.
 8. **Claims.** Flag any causal wording the evidence does not support, and any invented
-   impact, lift or revenue.
+   impact, lift or revenue. Flag a statement that a measure rose or fell where the report
+   does not say mix and seasonality were checked. Flag an experiment result that is not
+   labelled standard or custom, or a custom result without its health warnings beside it.
 
 ## Constraints
 
@@ -69,8 +75,9 @@ traceability issue; identify every file actually checked in the output.
   by methodology or executed SQL; an ambiguous results version; a ticket ID, colleague
   name or identifier in the body; anonymous record-level entries or sensitive free text;
   a causal claim the evidence cannot support; the plain-English test fails.
-- **Medium:** over the target but under the maximum; a visual with a missing label or
-  denominator; undefined jargon; a limitation placed away from its claim.
+- **Medium:** over the target but under the maximum; a visual with a missing label,
+  axis title or denominator; gridlines or printed values on a chart; undefined jargon; a
+  limitation placed away from its claim.
 - **Low:** wording, ordering or formatting improvements.
 
 ## Output (return to caller)
