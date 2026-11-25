@@ -43,6 +43,17 @@ evidence and decide whether it holds.
    saved results contain the data it needs.
 9. **Spot-check numbers.** Recompute a sample of rates and differences from saved counts
    and denominators. Report any difference.
+10. **Movement over time.** Any claim that a measure rose or fell has the mix check (channel,
+   new against repeat, subscription against one-time purchase, drug or category, as they
+   apply) and the seasonality check (whole weeks, same point in the month, known events) in
+   `methodology.md` (method rules §10). A coverage check that depends on the outcome is
+   flagged.
+11. **Experiments.** Each experiment result came through `$cro-experiment-analysis` and has
+   its route and health recorded. On the standard route, the confidence, tail and primary
+   metric match the configuration ingested from Statsig. On a custom route, each departure is
+   named and was agreed in Design, groups are like for like within each phase, a sample ratio
+   mismatch check passed, and splits by segment after the event are adjusted for multiple
+   comparisons and labelled hypothesis generating (method rules §11).
 
 ## Constraints
 

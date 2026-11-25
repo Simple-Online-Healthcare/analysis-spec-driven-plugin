@@ -60,6 +60,11 @@ undocumented, say so. Label a proposed rationale as interpretation, not history.
   unlinked.
 - Never assign the latest recorded value to every past event, and never analyse only the
   known-value units as though they represent everyone.
+- Do not use a coverage check whose group is defined through the thing being measured. If a
+  group can only be identified through the outcome itself (for example, patients linked only
+  through their orders), its rate is fixed by construction and is not evidence. Comparing a
+  field's coverage between people who did and did not have the outcome, in a group defined
+  independently of it, is allowed and is a finding (section 5).
 - Check whether a newer, usable period exists before calling historical missing data a
   permanent limitation.
 - Separate source capture gaps, ingestion gaps and transformation gaps before
@@ -102,3 +107,55 @@ silently choosing one.
   silently.
 - Do not describe routine revisions as competing studies.
 - State when an earlier result was corrected and by how much.
+
+## 10. Before saying a measure moved: mix and seasonality
+
+Do not say a measure rose or fell over time until both checks below are done and written in
+`methodology.md`. A movement that survives them is reported as a movement; one that does not
+is reported as what it is.
+
+**Mix.** Split the change into a change in who is counted and a change in the rate within each
+group. Check, as they apply:
+
+- marketing channel (including email and text message, and paid against unpaid);
+- new against repeat (or logged in against not logged in, where that is the reliable signal);
+- subscription against one-time purchase;
+- drug or category.
+
+Report the mix part as a range across both ways of setting up the split (weighting by the
+earlier mix and by the later mix), because the two rarely agree. Say which groups drove it.
+For a count (orders, conversions) rather than a rate, also report the size of each group:
+growth in the number counted is a third part, separate from mix and from the rate.
+State when a group's labelling changed during the period, because a labelling change looks
+like a mix change.
+
+**Seasonality.** The business has strong weekly and monthly cycles. Before calling a movement:
+
+- compare whole weeks with whole weeks, and the same days of the week;
+- compare with the same point in the month (pay day and month end move demand);
+- look at the same weeks a year earlier where the history exists;
+- mark known events (releases, experiments, promotions, changes in ad spend) on the timeline.
+
+Judge a movement against the same days and weeks in comparable periods, not by its size
+alone. A shift that holds across several comparable weeks is a change even when it is no
+bigger than the usual weekly swing. A single week that differs by about the usual swing is
+not yet a change; say so.
+
+## 11. Experiments
+
+When an analysis uses an experiment's result, the experiment method lives in the `cro-squad`
+plugin, not here. Call `$cro-experiment-analysis`; it runs the health check
+(`$cro-monitor`) and returns a result block with its route.
+
+- **Standard route (default):** the pre-built experiment results with the confidence level,
+  tail, direction and primary metric configured in Statsig. Do not override them.
+- **Custom route:** allowed when the standard route cannot answer the question. Every
+  departure is named in `methodology.md` and agreed in Design, and the skill's health warnings
+  appear in the report beside the number they affect.
+- No result is used before its health is known: sample ratio mismatch, missing events or
+  metadata, whether it ran to completion, and power. A sample ratio mismatch voids the result.
+- An experiment result is a randomised comparison. A before-and-after comparison of the same
+  change is not, and is labelled as such.
+
+If the `cro-squad` plugin is not installed, say so, do not rebuild the method by hand, and ask
+the user how to proceed.

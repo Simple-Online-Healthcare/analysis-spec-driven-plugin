@@ -24,6 +24,7 @@ specific line of SQL live in a comment next to that line.
 | Re-run or verify an earlier analysis | Start at **Verify** on the existing pack |
 | Report only, from existing verified results | Start at **Write** |
 | Review an existing pack or report | Start at **Review** |
+| Learn from a finished analysis | **Retrospective** only |
 
 ---
 
@@ -33,17 +34,24 @@ specific line of SQL live in a comment next to that line.
    Profile's role or tools have not been checked, or the user says they have just
    installed the plugin, run the `analysis-setup` skill first. Come back here when it
    reports that setup is complete.
-1. Get the ticket ID from the Profile's **ticketing** system, if there is one. Check for
+1. **Confirm where the work goes, from the Profile, before anything is created:** the
+   evidence repository and its base branch, the folder and branch names, and the Confluence
+   space, folder and page title (Profile, **Naming conventions**). Say them back to the user
+   in one line and wait for a yes before creating a branch, folder or page. This is the one
+   confirmation at Start; ask it together with the first Frame question so it adds no extra
+   round. A pack raised in the wrong repository or a page in the wrong space has to be
+   moved by hand later.
+2. Get the ticket ID from the Profile's **ticketing** system, if there is one. Check for
    an existing analysis folder or open PR for it.
-2. Read the **domain context** file named in the Profile. These hold the definitions of
+3. Read the **domain context** file named in the Profile. These hold the definitions of
    record. Do not redefine them.
-3. Look for earlier analyses of the same subject in the evidence repo. Name any that
+4. Look for earlier analyses of the same subject in the evidence repo. Name any that
    supply a finding; reuse their saved results where the period and definition still
    apply. Do not rebuild data that already exists.
-4. Branch from the Profile's **base branch**:
+5. Branch from the Profile's **base branch**:
    `git checkout <base> && git pull && git checkout -b <ticket-or-slug>`.
    If the working tree is dirty, stash first and say so.
-5. Create the analysis folder from the Profile's **folder pattern**
+6. Create the analysis folder from the Profile's **folder pattern**
    (`analyses/<dd-mm-yy>-<slug>/`).
 
 ---
@@ -66,6 +74,18 @@ Do this yourself, in the main thread. Pin down, with the user where needed:
   they contain. Use dbt to read model definitions, fields and lineage; use the repo for
   specifications and earlier evidence; run read-only **exploratory** warehouse queries
   only for what the design needs. A file being in a repo does not mean it is in the dbt catalogue.
+- **Prefer semantic views, then models, then raw SQL.** A semantic view carries the agreed
+  joins and measures; query it first. Fall back to the underlying models only when the view
+  does not hold what is needed, or the Profile's role cannot read it, and say which and why
+  in `methodology.md`. Confirm in Frame, under the Profile's role, that every source the
+  design needs can be read.
+- **Fix context at the source, not in the pack.** When a table turns out to mislead (a
+  measure counted twice, a join key with the wrong type, lowercase codes), do not keep a local
+  list of traps. Note it for the Retrospective, where it becomes a ticket to improve the
+  model's documentation so the next person gets it right first time.
+- **Experiments.** If the question uses an experiment's result, route to the `cro-squad`
+  plugin's `$cro-experiment-analysis` (method rules §11). Health comes first; the standard
+  route is the default; any custom analysis is agreed in Design and carries its warnings.
 - **Roadmap.** If the Profile names a **Roadmap location**, record in `methodology.md`
   the name and exact wording of any item that covers or relates to this question.
 
@@ -94,6 +114,9 @@ The topics to cover, as they apply (see `references/method-rules.md`):
 - time anchor, observation cutoff and follow-up length per horizon
 - outcome definitions and whether they overlap
 - comparison groups and whether they are like for like
+- for any claim that a measure moved over time: the mix and seasonality checks
+  (method rules §10)
+- for any experiment: the route (standard or custom) and, if custom, each departure
 - how missing data and unknown values are treated
 - the **visual brief**: what picture answers the question (see below)
 - small-count handling
@@ -244,6 +267,11 @@ warehouse re-run.
    **staged** report, chart and `methodology.md` files (`git show :<path> | shasum -a 256`)
    with the review hashes in `evidence_index.md`. A mismatch needs the matching recheck
    first (`AGENTS.md` §8); restage any file the recheck changes, then compare again.
+   If a repository filter (for example `nbstripout`) fails because of notebooks outside this
+   pack, and this pack contains no notebooks (`git diff --cached --name-only` lists no
+   `.ipynb`), stage with `git -c filter.nbstripout.clean=cat add <folder>` and say so in the
+   PR. If the pack does contain notebooks, never bypass the filter: strip their outputs
+   (`nbstripout <file>`), check no output remains, then stage.
 2. Commit with the ticket ID if there is one. Push the branch and open a PR to the base
    branch. The body carries: the question, the agreed design, the verification result,
    the known limits, and the visuals as images.
@@ -257,10 +285,31 @@ warehouse re-run.
 
 ---
 
+## Retrospective
+
+After the PR is open (and the page published, if asked), review the whole session once.
+The aim is that the next analysis gets it right first time.
+
+1. List every correction the user made and every fact found the hard way: a wrong source, a
+   misleading table, a wrong repository or space, a chart fixed after review, a rule the
+   skills did not state.
+2. For each, name where the fix belongs and propose it as a ticket, not a local note:
+   - **Data model documentation** (dbt model or column descriptions, semantic view
+     descriptions): a table that misleads, a join that needs a cast, a measure that double
+     counts. Ticket in the Profile's ticketing project.
+   - **This plugin** (a skill, a reference or an agent): a rule that was missing or unclear.
+   - **The `cro-squad` plugin**: anything about experiment method or health.
+   - **The domain context file**: a definition of record that was missing.
+3. Show the proposals to the user as a short table (what happened, where the fix belongs,
+   the proposed ticket title). Raise tickets only with permission.
+
+---
+
 ## Interactive only (v1)
 
-The human touchpoints are the Design questions, Needs-human checks, High and Medium review
-issues, and the PR. Do not add approval gates between phases. Scheduled or unattended mode
+The human touchpoints are the destination confirmation at Start, the Design questions,
+Needs-human checks, High and Medium review issues, and the PR. Do not add approval gates
+between phases. Scheduled or unattended mode
 is not supported in v1: an unattended run cannot answer Design questions.
 
 ---

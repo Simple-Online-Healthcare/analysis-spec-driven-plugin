@@ -45,6 +45,10 @@ is running, the skills are working. Check the agents: the four agents are
 - All four are available: pass.
 - Any is missing: ask the person to close this chat, start a new session in the same
   folder, and ask again. Tell them that this is normal after a first install.
+- Check the **`cro-squad`** plugin is installed and active, because experiment results
+  come from its `$cro-experiment-analysis` skill (Profile, **Experiment method**). If it is
+  missing or has not been updated recently, offer to install or update it. Without it,
+  analyses that use experiments stop and ask rather than rebuilding the method.
 
 ### 2. The tools on this computer
 
@@ -55,7 +59,7 @@ Run each and read the result. Do not install anything without asking.
 | Git | `git --version` | saving work | Ask the person to install Git, then re-run this step |
 | GitHub command-line tool | `gh --version`, then `gh auth status` | opening pull requests | If not signed in, the person runs `gh auth login` in their own terminal (it asks questions, so it cannot run through chat) |
 | Python 3 | `python3 --version` | building charts | Ask the person to install Python 3 |
-| Chart converter | `rsvg-convert --version` | turning charts into images | On a Mac: offer `brew install librsvg` and ask permission |
+| Chart converter | `rsvg-convert --version`, or Google Chrome installed | turning charts into images | Either works. On a Mac: offer `brew install librsvg` and ask permission, or use headless Chrome (see `report-writing/references/visuals.md`) |
 | Node | `npx --version` | flowcharts (optional) | Optional. Flowcharts can also be drawn without it |
 
 ### 3. The analysis repository
@@ -66,7 +70,12 @@ Run each and read the result. Do not install anything without asking.
   what to do. Do not stash or discard anything without being told.
 - The Profile's **Base branch** exists on this computer and on GitHub.
 - `AGENTS.md` exists in the repository's top folder and has a completed Analysis Profile:
-  no placeholder text, no empty value.
+  no placeholder text, no empty value, and **every row** in the plugin's
+  `AGENTS.example.md` Profile is present (compare the row names; a copy made before a plugin
+  update can lack newer rows such as **Naming conventions**, **Data sources** and
+  **Experiment method**). If a row is missing, show the person the row from the example
+  with your recommended value and ask them to add it through a pull request before the
+  Profile is used.
   - If `AGENTS.md` is missing: tell the person what it is (the team's rules and settings,
     in one file). Offer to copy `AGENTS.example.md` from the plugin to the repository's
     top folder.

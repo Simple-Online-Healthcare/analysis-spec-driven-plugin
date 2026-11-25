@@ -29,6 +29,9 @@
 | Base branch | `main` |
 | Domain context location | `context/<domain>.md` in the evidence repository. Holds links to the definitions of record. The plugin never stores domain definitions. |
 | Report destination | Confluence space `DT` (Data Team). Parent page per study series. |
+| Naming conventions | **Repository:** `analytics` (GitHub `<org>/analytics`), base branch `main`; never `analytics-pipelines` (dbt) or another team's repo. **Branch:** `<TICKET>-<slug>` from `main`. **Folder:** `analyses/<dd-mm-yy>-<slug>/`, dated the day the analysis starts, slug in lowercase words joined by hyphens. **Confluence:** space `DT` (Data Team), never `DATA`; folder `Analysis` under the space home; page title states the question in plain words (for example "Kin conversion: why it fell, and what commitment plans did"), no dates, ticket IDs or version numbers; one page per study, reused on re-runs. |
+| Data sources | Prefer semantic views, then dbt models, then raw tables. Say in `methodology.md` when a fallback was used and why. Problems with a source are fixed in its model documentation (raise a ticket), not recorded as local notes in the pack. |
+| Experiment method | Lives in the `cro-squad` plugin. Call `$cro-experiment-analysis` for any experiment result; it health-checks first and labels each result as the standard route (pre-built results with the settings configured in Statsig) or a custom route with health warnings. Both plugins must be installed. |
 | Confluence base URL | `https://<your-site>.atlassian.net/wiki` |
 | Image publishing | Route A (the agent uploads the picture for you; tested; token held as a per-user Cortex secret named `ATLASSIAN_API_TOKEN`). Fallback: route B (manual drag-in). See `report-writing/references/confluence-publish.md`. |
 | Ticketing | Jira project `DATA`. Ticket IDs go in commits, PRs and `methodology.md`, never in the report body. |
@@ -37,7 +40,7 @@
 | Length | Target 1,500 words for the main report. Hard maximum 2,000 words. Counted only with the `report-writing` skill's `scripts/count_words.py`; that script defines what counts. This row is the only place the limit is set. |
 | Reading time | Up to about 10 minutes of reading plus about 2 for the visuals. 12 minutes at most. |
 | Minimum visuals | 1 per report (a chart or a flowchart; a table alone does not count) |
-| Chart tooling | Python standard library builds SVG; `rsvg-convert` converts to PNG. Flowcharts: mermaid via `npx`, or the same SVG approach. |
+| Chart tooling | Python standard library builds SVG; `rsvg-convert` converts to PNG, or headless Chrome at 2x where `rsvg-convert` is not installed. Flowcharts: mermaid via `npx`, or the same SVG approach. |
 | Roadmap location | Optional. Where the team's roadmap lives, for example a Confluence page. Leave out if analyses are often not roadmap work; reports then show no roadmap column. |
 | Small-count handling | Decided per analysis in the Design phase and recorded in `methodology.md`. |
 | Sensitive data rule | No personal identifiers, emails, free text or record-level health detail in reports, results files or skill resources. Saved results are aggregates only. |
@@ -115,6 +118,11 @@ The rules in `skills/analysis-workflow/references/method-rules.md` are binding. 
 - Compare like with like.
 - When an outcome is missing for a person, keep that person in the total.
 - Do not say one thing caused another unless the design proves it.
+- Before saying a measure rose or fell, check mix (channel, new against repeat, subscription
+  against one-time purchase, drug or category) and seasonality (weekly and monthly cycles),
+  and record both in `methodology.md`.
+- An experiment result comes through `$cro-experiment-analysis`, health first. A custom route
+  is agreed in Design and its warnings sit beside the number in the report.
 
 **Fail if:** the `method-reviewer` returns a High issue that has not been fixed or
 explicitly accepted by the user.
@@ -220,6 +228,9 @@ comment.
 - Jargon, an em dash, or a percentage with no count beside it, in anything written for a
   reader (§12).
 - Skipping the Verify phase because the SQL "looks right".
+- Using an experiment result before its health (sample ratio mismatch, missing events,
+  completion, power) is known, or reporting a custom experiment analysis without its
+  warnings.
 
 ---
 

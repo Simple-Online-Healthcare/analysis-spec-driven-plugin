@@ -18,14 +18,16 @@ exploration may inform this choice during Design.
 | A journey, process or decision path the reader must follow | Flowchart |
 | Which step in a process loses the most | Flowchart annotated with counts, or a funnel bar |
 
-One or two clear visuals beat a page of competing charts. Three is a typical maximum.
+One or two clear visuals beat a page of competing charts. Three is a typical maximum; more
+needs a reason stated in the visual brief.
 Use verified counts and derived values only. Never use illustrative numbers.
 
 ## Every visual must
 
 A chart carries five things: a **title** that states the finding, a short **subtitle**
 naming the population, period and what each bar or point counts (the total), labelled
-**axes** where relevant, a plain **legend** or direct labels, and **data labels**.
+**axes** where relevant (an axis title with units on every value axis), and a plain
+**legend** or direct labels. Exact values go in a table or caption beside the chart, not on it.
 
 - Put definitions, overlap statements and caveats in the sentence or caption beside the
   chart. The chart and its caption are read together.
@@ -34,6 +36,21 @@ naming the population, period and what each bar or point counts (the total), lab
   subtitle.
 - Use ordinary words everywhere, including subtitles, axis titles and labels. Do not put
   statistical or interval notation on the chart ("N", "[d, d+1)", "clustered inference").
+
+- Have an **axis title on every axis that carries a value**, including the units ("Conversion
+  rate (%)", "Emails sent (thousands)"). A chart with no Y-axis title cannot be read.
+- Have **no gridlines**. Keep one plain baseline axis and a few tick labels.
+- Show the shape, not the figures. **Do not print values on bars or points.** Put exact
+  numbers in a table beside the chart, and in the caption where only two or three matter. A
+  hover tooltip (`<title>` on each SVG mark) is a bonus for the HTML version only: it is lost
+  when the chart is converted to PNG, so a published chart always has its values in a table
+  or caption as well.
+- On a chart over time, **mark known events** (a release, an experiment's phases, a
+  promotion, a cut in ad spend) with a shaded band or a line and a short plain label.
+  Without them a reader reads every dip as a product problem.
+- **Leave out points built on small counts** instead of plotting a noisy rate, and state the
+  threshold in the caption ("days with fewer than 100 journeys are left blank"). Use `null`
+  for a gap, never zero or a joined-up line.
 - Keep percentages at a useful precision, with counts where sample size matters.
 - A chart meant to circulate on its own, such as on a slide, carries enough context for
   that use.
@@ -58,6 +75,19 @@ that: no extra packages to install.
    ```bash
    rsvg-convert -w 1600 visuals/chart.svg -o visuals/chart.png
    ```
+
+   If `rsvg-convert` is not installed, headless Chrome gives the same result at 2x scale and
+   uses the system fonts (tested on macOS):
+
+   ```bash
+   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+     --force-device-scale-factor=2 --window-size=<width>,<height> \
+     --screenshot=visuals/chart.png visuals/chart.svg
+   ```
+
+   The check mode may live in the script that renders the report when charts and report are
+   built together (for example `render_report.py --check`). What matters is that one command
+   proves the visuals match the saved results.
 
    PNG is safer than SVG in Confluence.
 

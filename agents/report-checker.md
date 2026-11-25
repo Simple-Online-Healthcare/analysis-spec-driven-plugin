@@ -51,7 +51,10 @@ Record the full SHA-256 of the report, of each chart image and of `methodology.m
    naming population, period and total; labelled axes; text not cut off or overlapping; a
    sentence or caption beside it saying what it shows. Check each chart's numbers against
    the cited results version for that visual. Flag paragraphs, definitions or footnotes
-   inside the image, and a title or label that says more than the evidence.
+   inside the image, and a title or label that says more than the evidence. Also check: an axis title with units on every value axis; no gridlines;
+   no values printed on bars or points (exact figures belong in a table or caption);
+   known events marked on charts over time; small-count points left blank with the
+   threshold stated. More than three visuals needs a reason in the visual brief.
 4. **Reader-facing content.** Scan the body for: ticket IDs, PR IDs, query IDs, agent
    names, named colleagues, owners or leads (even as proposals), long technical paths,
    personal identifiers, anonymous record-level entries, sensitive free text, unresolved
@@ -77,7 +80,9 @@ Record the full SHA-256 of the report, of each chart image and of `methodology.m
    usable period, has not been cut (`SKILL.md`, "Shorten without changing the answer").
    Measured impact is kept apart from potential opportunity.
 8. **Claims.** Flag any causal wording the evidence does not support, and any invented
-   impact, lift or revenue.
+   impact, lift or revenue. Flag a statement that a measure rose or fell where the report
+   does not say mix and seasonality were checked. Flag an experiment result that is not
+   labelled standard or custom, or a custom result without its health warnings beside it.
 
 ## Re-review
 
@@ -111,7 +116,8 @@ reason to reopen it.
   omits or buries the finding that most changes the decision.
 - **Medium:** required correction. Over the target but under the maximum; a lead chosen
   by size over decision relevance; definitions, caveats or footnotes inside a chart; a
-  chart missing a title, subtitle, axis label, legend or data labels; a limitation that does not say what it
+  chart missing a title, subtitle, axis title with units or legend; gridlines or values
+  printed on a chart; a limitation that does not say what it
   prevents; an open question that would not change the decision; a caution-only finding
   among the headlines; undefined jargon; a limitation placed away from its claim.
 - **Low:** optional. Wording, ordering or formatting improvements.

@@ -106,8 +106,9 @@ Move the rest to the pack.
 
 A table can help, but it is not a visual for the minimum. Use a chart where numbers
 compare or change, and a flowchart where the report explains a journey or process. The
-image holds a title, subtitle, axis labels, legend and data labels; definitions and
-caveats go in the sentence beside it. Inspect the rendered image before delivery. Full
+image holds a title, subtitle, axis titles with units and a legend, with no gridlines and no
+values printed on it; exact values, definitions and caveats go in a table or the sentence
+beside it. Inspect the rendered image before delivery. Full
 guidance: `references/visuals.md`.
 
 ## Finish with what this report supports
