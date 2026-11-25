@@ -10,21 +10,16 @@ the team's published studies, with a visual slot for each stage.
 *Population | Study dates | Evidence date*
 
 ## Executive summary
-**[One-sentence answer.]**
-- Principal finding, with the count and the total it comes from.
-- Second finding that changes the decision.
-- Recommended action, without claiming it is proven to work.
+**[One-sentence answer to the business question.]**
+- The finding that most changes the decision, with its count, total and essential limit.
+- Up to two more findings that change the decision.
+- The decision the evidence supports, or does not support, stated plainly.
 
 ## Why this was studied
-Two or three sentences: the business question and the outcome that matters.
+Two or three sentences: the business question and the decision it informs. Define, in
+place, only the terms the summary needs.
 
-## What was measured
-Define essential terms before the first results table. Add a small table: who was
-included, date range, follow-up, counting unit, exclusions. Say why important choices
-were made, and label any undocumented rationale as such.
-
-[VISUAL 1: overview. Usually a flowchart of the journey or process measured, or a chart
-of the headline comparison.]
+[VISUAL 1: the comparison or journey that carries the lead finding.]
 
 ## [Finding 1 as a sentence]
 Table or chart. What the numbers mean and why the business should care. Qualifications
@@ -35,11 +30,24 @@ nobody acts. Written as if the reader missed the point. See `plain-writing.md`.
 ## [Finding 2 as a sentence]
 Same sequence: evidence, meaning, **Implication**. Do not repeat the summary verbatim.
 
-[VISUAL 2: the comparison that carries the main finding.]
+[VISUAL 2, if needed.]
 
-## What should happen next
-| Priority | Action | Question it answers | How success is judged |
-|---|---|---|---|
+## Numbers not to over-read (optional)
+Short bullets for figures that look like findings but cannot support a decision, each
+with the reason in one line.
+
+## What this report supports
+| Decision | Rests on |
+|---|---|
+| Supported: ... | Finding 1 |
+| Not supported yet: ... | Finding 2 |
+
+Add a "Where it sits" column only when a roadmap item relates to a decision (`SKILL.md`).
+One sentence of guardrails where a change is supported.
+
+## How it was measured
+A small table: who was included, date range, follow-up, counting unit, exclusions. Say why
+important choices were made, and label any undocumented rationale as such.
 
 ## What this study does not establish
 One or two sentences. Association vs cause, gaps in coverage, anything not measured.
@@ -71,9 +79,8 @@ the evidence pack, or an appendix only when requested.
 
 ## Length check
 
-Aim for 1,500 words. Never exceed 2,000, counting tables and captions. If the draft is
-over, move supporting detail into the pack and keep the finding, the evidence that
-carries it, and the implication.
+Stay within the Profile's length, counted with `scripts/count_words.py`. If the draft is
+over, follow "Shorten without changing the answer" in `SKILL.md`.
 
 *Domain-specific example terminology does not belong in this template. Put it in the
 domain context file in the analysis repository.*

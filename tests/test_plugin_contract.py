@@ -1,8 +1,10 @@
 """Small structural regressions for the review fixes; no live services required."""
 
+import importlib.util
 import json
 from pathlib import Path
 import re
+import time
 import unittest
 from xml.etree import ElementTree
 
@@ -145,6 +147,64 @@ class PluginContractTests(unittest.TestCase):
                 with self.subTest(line=number):
                     cells = [c for c in re.split(r"(?<!\\)\|", line.strip()[1:-1])]
                     self.assertEqual(len(cells), 2, line[:80])
+
+    def test_word_counter_counts_only_visible_text(self):
+        spec = importlib.util.spec_from_file_location(
+            "count_words", ROOT / "skills/report-writing/scripts/count_words.py")
+        counter = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(counter)
+        sample = ("# Title here\n\n**412 of 1,830** customers (23%) left.\n\n"
+                  "| Group | Count |\n|---|---|\n| New | 5 |\n\n"
+                  "![chart alt words](visuals/a.png)\n*Caption text.*\n\n"
+                  "See [the pack](https://x.y/z) now.\n<!-- hidden note -->\n\n"
+                  "```\nselect 1\n```\n")
+        self.assertEqual(counter.count_words(sample), 18)
+        for edge, words in (
+            ("Groups under <5 people were merged; groups of >20 people were kept.", 12),
+            ("--- end of section, three words", 5),
+            ("[^1]: This footnote is shown to readers.", 7),
+            ("[ref]: https://x.y/z\n\n----\n", 0),
+            ("````\n```\ninner\n```\n````\nafter", 1),
+            ("![alt words here][fig1]\n\nBody text.", 2),
+            ("```\n```python\nhidden\n```\nVisible here", 2),
+            ("<!--\n```\n-->\nVisible paragraph here", 3),
+            ("See [the pack][ref] now.", 4),
+            ("![chart alt words]\n\n[chart alt words]: visuals/a.png\n\nBody text.", 2),
+            ("![literal words] stays", 3),
+            ("```\n<!--\n```\nVisible after\n\n<!-- real -->\nMore words here", 5),
+            ("Keep this <!-- start\nhidden\n--> and this", 4),
+            ('See [the chart] here.\n\n[the chart]:\n  visuals/a.png\n  "Chart title"\n', 4),
+            ("[ref]: visuals/a.png\nNext paragraph line", 3),
+        ):
+            with self.subTest(edge=edge):
+                self.assertEqual(counter.count_words(edge), words)
+        for line in ("-" * 3000 + "x", "--- " * 40 + "x", "|---|:---:|", "---"):
+            started = time.perf_counter()
+            counter.visible_text(line)
+            self.assertLess(time.perf_counter() - started, 0.5, line[:20])
+
+    def test_length_limit_lives_only_in_profile(self):
+        rules = text("AGENTS.example.md")
+        profile, body = rules.split("## 1. Evidence pack", 1)
+        self.assertIn("count_words.py", profile)
+        paths = [p for p in ROOT.rglob("*.md") if {"docs", "tests", ".git"}.isdisjoint(p.parts)]
+        for path in paths:
+            source = body if path.name == "AGENTS.example.md" else path.read_text(encoding="utf-8")
+            with self.subTest(file=str(path.relative_to(ROOT))):
+                self.assertNotRegex(source, r"\b(1,500|2,000) words")
+        self.assertIn("count_words.py", text("agents/report-checker.md"))
+
+    def test_report_closes_with_decisions_without_owners(self):
+        template = text("skills/report-writing/references/report-template.md")
+        self.assertIn("## What this report supports", template)
+        self.assertNotIn("What should happen next", template)
+        claims = text("AGENTS.example.md").split("## 7.", 1)[1].split("## 8.", 1)[0]
+        for rule in ("no owners", "related, not covered", "missing record"):
+            self.assertIn(rule, claims)
+        checker = text("agents/report-checker.md")
+        self.assertLess(checker.index("**Executive read."), checker.index("**Length.**"))
+        self.assertIn("## Re-review", checker)
+        self.assertIn("## Re-review", text("agents/writing-checker.md"))
 
     def test_setup_skill_is_safe_and_complete(self):
         setup = text("skills/analysis-setup/SKILL.md")

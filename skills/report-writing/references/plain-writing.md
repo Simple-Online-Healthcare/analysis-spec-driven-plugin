@@ -19,8 +19,8 @@ first time.
 | numerator | the number of people who did the thing |
 | cutoff | the date after which nothing was counted |
 | baseline | the starting level, before the change |
-| attrition, churn | people who left or stopped |
-| retention | people who stayed |
+| attrition, churn | say what ended: a subscription, a run of orders, or all buying |
+| retention | name what was measured, for example people still subscribed at day 90 |
 | conversion | people who went on to do the next step |
 | segment | a group of customers who share something (say what) |
 | population | everyone who could have been counted (say who) |
@@ -47,7 +47,26 @@ first time.
 Words that sound clear but say nothing also count: "pattern", "signal", "trend", "driver",
 "insight". Replace each with what you actually saw, when, and for whom.
 
-## 2. Counts first, percentages second
+## 2. Short labels that keep what was measured
+
+A defined term gets the shortest familiar label that keeps what was measured. Define it
+once, then use it the same way in every heading, table and chart. A short label must not
+simplify away uncertainty, timing, the counting unit, or the difference between a missing
+record and a failure.
+
+For each defined term, know three things: what was measured, the label the reader sees,
+and what the label must not imply.
+
+| Measured | Label | Must not imply |
+|---|---|---|
+| Records consistent with an outcome, for the checks run | a short description of those records | the outcome is confirmed beyond those checks |
+| No matching message record | no matching message record | the person definitely got no message |
+| Subscription cancelled | subscription ended | the person stopped buying from the company |
+
+If no short label fits without overstating, keep the longer accurate one. Domain terms and
+their labels belong in the domain context file in the analysis repository, not here.
+
+## 3. Counts first, percentages second
 
 Always give the real number and the total. A percentage on its own hides how many people
 stand behind it.
@@ -61,28 +80,32 @@ stand behind it.
 - Put the percentage in brackets after the count. Never alone.
 - When two groups have different sizes, show both counts so the reader can see the sizes.
 - Charts and tables: label the axis or column with the count, and add the total in the
-  title or caption.
+  title or caption. A total given in a column header or caption need not be repeated in
+  every cell.
+- Headings and bold lead-ins: the rule applies to the sentence, table or caption that
+  carries the number. A heading need not repeat every number from the text below it.
 - Small counts: say so. "Only `<N>` people" tells the reader how much weight to give it.
 - Do not round a count. Round a percentage to a whole number unless the difference matters.
 
-## 3. Write the implication as if the reader missed the point
+## 4. Write the implication as if the reader missed the point
 
 The **Implication** line answers three questions in plain words:
 
 1. What does this finding mean for the business?
 2. Why does it matter, and to whom?
-3. What happens if nobody acts, or what should be checked next?
+3. What happens if nobody acts, or which decision it changes?
 
-Do not repeat the finding in new words. Do not assume the reader saw why it matters.
+It may quote a number from the finding when the consequence depends on it. It must add
+meaning, not restate the finding. Do not assume the reader saw why it matters.
 
 | Weak | Strong |
 |---|---|
-| Implication: Cancellations are high on day one. | Implication: `<N>` of `<total>` customers are gone before a second order. Any plan that counts on repeat orders starts from a smaller group than it looks. Nothing here shows why they left, so the next step is to find out. |
+| Implication: Cancellations are high on day one. | Implication: `<N>` of `<total>` customers are gone before a second order. Any plan that counts on repeat orders starts from a smaller group than it looks. Nothing here shows why they left, so it does not yet support changing the repeat-order offer. |
 
 Keep the claim inside what the evidence shows (`AGENTS.md` §7). Say "this suggests" or
 "nothing here shows why". Do not say "this means" when the design cannot prove it.
 
-## 4. Punctuation and sentences
+## 5. Punctuation and sentences
 
 - **No em dash.** Do not use the long dash, and do not use two hyphens in its place. Use a
   full stop, a comma, a colon or brackets.
@@ -94,7 +117,7 @@ Keep the claim inside what the evidence shows (`AGENTS.md` §7). Say "this sugge
 - Spell out an abbreviation the first time. Avoid ones the reader may not know.
 - Use "to" for a range in running text: "10 to 14 days".
 
-## 5. Tone
+## 6. Tone
 
 - Calm, direct and neutral. No hype ("huge", "alarming"), no hedging pile-ups ("may
   possibly suggest").
@@ -103,7 +126,7 @@ Keep the claim inside what the evidence shows (`AGENTS.md` §7). Say "this sugge
 - Say plainly what is not known. Do not hide a limit in a footnote.
 - Respectful of the reader: explain, do not lecture.
 
-## 6. Say exactly what was measured
+## 7. Say exactly what was measured
 
 - **Use the business word of record for the outcome.** If the measure is conversion, write
   "convert" and "conversion rate" throughout. Do not drift into "pay", "buy" or "sign up",
@@ -127,9 +150,10 @@ Keep the claim inside what the evidence shows (`AGENTS.md` §7). Say "this sugge
   must rise by at least 16% to stand still" is checkable. Multiples that cancel out of the
   calculation (2x, 3x return on spend) add nothing.
 
-## 7. Before you hand text over
+## 8. Before you hand text over
 
 - No jargon left, or each remaining term explained in brackets.
+- Each defined term has one label, used the same way everywhere.
 - Every finding has an Implication that stands on its own.
 - Every percentage has its count and total beside it.
 - No em dash anywhere.

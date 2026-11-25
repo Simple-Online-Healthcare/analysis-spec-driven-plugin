@@ -60,7 +60,11 @@ specific line of SQL live in a comment next to that line.
 
 Do this yourself, in the main thread. Pin down, with the user where needed:
 
-- **The decision** the analysis informs, and who will make it.
+- **The decision** the analysis informs, who will make it, and the alternatives being
+  considered.
+- **What the analysis must settle:** the question it has to answer for the decision,
+  what evidence would change the recommendation, and what is out of scope. A finished
+  report answers this as far as the evidence permits.
 - **The reader.** Assume non-technical unless told otherwise.
 - **The stage requested:** explain, draft, publish. Honour it. Do not publish when asked
   to draft.
@@ -82,8 +86,11 @@ Do this yourself, in the main thread. Pin down, with the user where needed:
 - **Experiments.** If the question uses an experiment's result, route to the `cro-squad`
   plugin's `$cro-experiment-analysis` (method rules §11). Health comes first; the standard
   route is the default; any custom analysis is agreed in Design and carries its warnings.
+- **Roadmap.** If the Profile names a **Roadmap location**, record in `methodology.md`
+  the name and exact wording of any item that covers or relates to this question.
 
-Write the question, decision, reader and stage at the top of `methodology.md`.
+Write the question, decision, alternatives, what must be settled, scope, reader and stage
+at the top of `methodology.md`.
 
 ---
 
@@ -198,14 +205,18 @@ Follow `report-writing` and `AGENTS.md` §12. Write the report from verified res
 Use plain words, give counts before percentages, never use an em dash, and write each
 Implication so it makes sense to someone who missed the point of the finding.
 
-- Start with why the question matters and the principal finding.
+- Lead with the finding that most changes the decision (`report-writing`, "Tell one
+  coherent story").
 - Prioritise three or four consequential findings, each with an **Implication** line.
 - Every measured value comes from its cited saved results version; design dates come
   from methodology or executed SQL. Every visual is rendered and inspected.
 - State the population, definitions and limits beside the claims they affect.
-- End with a decision-oriented next-steps table and a short statement of what the study
-  does **not** establish.
-- Save to `executive_study.md`. Detail goes in the pack with links, not in the body.
+- End with "What this report supports" and a short statement of what the study does
+  **not** establish.
+- Save to `executive_study.md`. Detail goes in the pack with links, not in the body. If
+  the report is rewritten after verification, keep the new report and its charts in a
+  `report/` subfolder so the verified files stay unchanged. Record the current report's
+  path in `evidence_index.md`.
 
 ---
 
@@ -214,12 +225,15 @@ Implication so it makes sense to someone who missed the point of the finding.
 Delegate in parallel to:
 
 - `method-reviewer`: the design and SQL against the method rules.
-- `report-checker`: word count, visuals, traceability, reader-facing content, plain-English test.
+- `report-checker`: executive read, word count, visuals, traceability, claim meaning,
+  decision use and reader-facing content.
 - `writing-checker`: grammar, flow, tone, ease of understanding and the writing rules in
-  `AGENTS.md` §12. Give it `executive_study.md` and `methodology.md`.
+  `AGENTS.md` §12. Give it the current report and `methodology.md`.
 
-All are independent: they have not seen your reasoning, which is the point. Each returns
-High, Medium and Low issues.
+All are independent: they have not seen your reasoning, which is the point. Each owns its
+area, cites the rule behind each issue, and returns High, Medium and Low issues.
+`report-checker` and `writing-checker` also return the SHA-256 of the files they checked.
+Record the verdicts and hashes in `evidence_index.md`.
 
 - Interactive: walk the High and Medium issues with the user, offering a specific fix for
   each.
@@ -233,12 +247,26 @@ High, Medium and Low issues.
   caveats for cases that cannot happen.
 - Record each issue not fixed in `evidence_index.md` under "Known limits".
 
+**Rounds.** On a re-review, give each checker its previous issue list. After two automatic
+rounds, stop rewriting and show the user what remains, grouped as blocking (High),
+required (Medium) and optional (Low), with any place two checkers contradict each other.
+Remaining High issues still block (`AGENTS.md` §8).
+
+**Recheck in proportion to the edit.** A wording change needs `report-checker` (meaning,
+executive read) and `writing-checker`. A chart change needs `report-checker` (visuals). A
+method or result change needs `method-reviewer`, `replay-verifier` and `report-checker`,
+and `writing-checker` when `methodology.md` changes. Punctuation alone does not need the
+warehouse re-run.
+
 ---
 
 ## Hand over
 
 1. Check `git status`. Stage only this analysis: the pack, the visuals and the report. No
-   scratch files, no record-level extracts.
+   scratch files, no record-level extracts. Before committing, compare the SHA-256 of the
+   **staged** report, chart and `methodology.md` files (`git show :<path> | shasum -a 256`)
+   with the review hashes in `evidence_index.md`. A mismatch needs the matching recheck
+   first (`AGENTS.md` §8); restage any file the recheck changes, then compare again.
    If a repository filter (for example `nbstripout`) fails because of notebooks outside this
    pack, and this pack contains no notebooks (`git diff --cached --name-only` lists no
    `.ipynb`), stage with `git -c filter.nbstripout.clean=cat add <folder>` and say so in the
@@ -248,7 +276,9 @@ High, Medium and Low issues.
    branch. The body carries: the question, the agreed design, the verification result,
    the known limits, and the visuals as images.
 3. Publish to Confluence **only with explicit permission**, following
-   `report-writing/references/confluence-publish.md`. Draft first, reuse the existing
+   `report-writing/references/confluence-publish.md`. Before publishing, confirm the
+   report, chart and `methodology.md` hashes still match the recorded review, and that no
+   placeholder or local file link remains in the page. Draft first, reuse the existing
    page, never create numbered duplicates. Complete its **After publishing** step so
    the committed pack and PR both link to the page.
 4. Update the ticket. **Never merge.**
