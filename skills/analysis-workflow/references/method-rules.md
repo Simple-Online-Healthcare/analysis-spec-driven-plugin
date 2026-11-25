@@ -60,9 +60,11 @@ undocumented, say so. Label a proposed rationale as interpretation, not history.
   unlinked.
 - Never assign the latest recorded value to every past event, and never analyse only the
   known-value units as though they represent everyone.
-- Do not use a coverage check that depends on the outcome. If a group can only be identified
-  through the outcome itself (for example, patients linked only through their orders), its
-  rate is fixed by construction and is not evidence.
+- Do not use a coverage check whose group is defined through the thing being measured. If a
+  group can only be identified through the outcome itself (for example, patients linked only
+  through their orders), its rate is fixed by construction and is not evidence. Comparing a
+  field's coverage between people who did and did not have the outcome, in a group defined
+  independently of it, is allowed and is a finding (section 5).
 - Check whether a newer, usable period exists before calling historical missing data a
   permanent limitation.
 - Separate source capture gaps, ingestion gaps and transformation gaps before
@@ -122,6 +124,8 @@ group. Check, as they apply:
 
 Report the mix part as a range across both ways of setting up the split (weighting by the
 earlier mix and by the later mix), because the two rarely agree. Say which groups drove it.
+For a count (orders, conversions) rather than a rate, also report the size of each group:
+growth in the number counted is a third part, separate from mix and from the rate.
 State when a group's labelling changed during the period, because a labelling change looks
 like a mix change.
 
@@ -132,8 +136,10 @@ like a mix change.
 - look at the same weeks a year earlier where the history exists;
 - mark known events (releases, experiments, promotions, changes in ad spend) on the timeline.
 
-If a movement is the size of the usual weekly or monthly swing, say so and do not call it a
-change.
+Judge a movement against the same days and weeks in comparable periods, not by its size
+alone. A shift that holds across several comparable weeks is a change even when it is no
+bigger than the usual weekly swing. A single week that differs by about the usual swing is
+not yet a change; say so.
 
 ## 11. Experiments
 

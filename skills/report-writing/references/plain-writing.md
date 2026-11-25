@@ -119,7 +119,10 @@ Keep the claim inside what the evidence shows (`AGENTS.md` §7). Say "this sugge
 - **Experiment results use one fixed table shape:** the rate per group, the relative
   difference, then a row for the p-value to three decimal places marked "(statistically
   significant)" or "(not statistically significant)" at the stated level, and a row for the
-  likely range at the stated confidence. Say whether the test was one-sided.
+  likely range at the stated confidence. Say whether the test was one-sided. Write "below
+  0.001" for smaller p-values, and give a fourth decimal place when three would round onto
+  the bar (0.0996 against a 0.10 bar, not 0.100); the label always follows the unrounded
+  value.
 - **State the consequence as the condition to break even.** "Lifetime value per new customer
   must rise by at least 16% to stand still" is checkable. Multiples that cancel out of the
   calculation (2x, 3x return on spend) add nothing.

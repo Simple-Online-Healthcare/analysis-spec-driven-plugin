@@ -70,7 +70,12 @@ Run each and read the result. Do not install anything without asking.
   what to do. Do not stash or discard anything without being told.
 - The Profile's **Base branch** exists on this computer and on GitHub.
 - `AGENTS.md` exists in the repository's top folder and has a completed Analysis Profile:
-  no placeholder text, no empty value.
+  no placeholder text, no empty value, and **every row** in the plugin's
+  `AGENTS.example.md` Profile is present (compare the row names; a copy made before a plugin
+  update can lack newer rows such as **Naming conventions**, **Data sources** and
+  **Experiment method**). If a row is missing, show the person the row from the example
+  with your recommended value and ask them to add it through a pull request before the
+  Profile is used.
   - If `AGENTS.md` is missing: tell the person what it is (the team's rules and settings,
     in one file). Offer to copy `AGENTS.example.md` from the plugin to the repository's
     top folder.

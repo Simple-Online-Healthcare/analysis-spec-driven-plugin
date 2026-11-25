@@ -10,8 +10,12 @@ and its visuals live in the analysis folder first.
 2. Preserve the approved page identity and hierarchy. Place new pages where the Profile's
    **Naming conventions** say: the named space (check the space key, not only its display
    name; a similarly named space is the commonest mistake), the named folder, and a
-   plain-English title. A page created in the wrong space cannot be moved across spaces by
-   the API (403); it has to be recreated and the wrong one deleted.
+   plain-English title. A page in the wrong space cannot be moved across spaces by the API
+   (403). For a **draft** nobody else has seen, recreate it in the right place and delete
+   the wrong one. For a **published** page, ask the user to move it in the Confluence UI,
+   which keeps the page and redirects its old link; check the old link still resolves.
+   Recreate a published page only if the user chooses that, after being told which links
+   would break.
 3. Write the page link into the pack's `README.md` and `evidence_index.md` as soon as the
    draft exists, and name the repository and folder in the page's sources section, so a later
    move updates both ends.

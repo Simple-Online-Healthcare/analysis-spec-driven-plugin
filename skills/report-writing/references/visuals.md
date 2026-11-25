@@ -29,8 +29,10 @@ Use verified counts and derived values only. Never use illustrative numbers.
   rate (%)", "Emails sent (thousands)"). A chart with no Y-axis title cannot be read.
 - Have **no gridlines**. Keep one plain baseline axis and a few tick labels.
 - Show the shape, not the figures. **Do not print values on bars or points.** Put exact
-  numbers in a table beside the chart, or in a hover tooltip (`<title>` on each SVG mark),
-  and in the caption where only two or three matter.
+  numbers in a table beside the chart, and in the caption where only two or three matter. A
+  hover tooltip (`<title>` on each SVG mark) is a bonus for the HTML version only: it is lost
+  when the chart is converted to PNG, so a published chart always has its values in a table
+  or caption as well.
 - On a chart over time, **mark known events** (a release, an experiment's phases, a
   promotion, a cut in ad spend) with a shaded band or a line and a short plain label.
   Without them a reader reads every dip as a product problem.

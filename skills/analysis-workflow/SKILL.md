@@ -37,7 +37,9 @@ specific line of SQL live in a comment next to that line.
 1. **Confirm where the work goes, from the Profile, before anything is created:** the
    evidence repository and its base branch, the folder and branch names, and the Confluence
    space, folder and page title (Profile, **Naming conventions**). Say them back to the user
-   in one line. A pack raised in the wrong repository or a page in the wrong space has to be
+   in one line and wait for a yes before creating a branch, folder or page. This is the one
+   confirmation at Start; ask it together with the first Frame question so it adds no extra
+   round. A pack raised in the wrong repository or a page in the wrong space has to be
    moved by hand later.
 2. Get the ticket ID from the Profile's **ticketing** system, if there is one. Check for
    an existing analysis folder or open PR for it.
@@ -237,8 +239,11 @@ High, Medium and Low issues.
 
 1. Check `git status`. Stage only this analysis: the pack, the visuals and the report. No
    scratch files, no record-level extracts.
-   If a repository filter (for example `nbstripout`) fails on notebooks outside this pack,
-   stage with `git -c filter.nbstripout.clean=cat add <folder>` and say so in the PR.
+   If a repository filter (for example `nbstripout`) fails because of notebooks outside this
+   pack, and this pack contains no notebooks (`git diff --cached --name-only` lists no
+   `.ipynb`), stage with `git -c filter.nbstripout.clean=cat add <folder>` and say so in the
+   PR. If the pack does contain notebooks, never bypass the filter: strip their outputs
+   (`nbstripout <file>`), check no output remains, then stage.
 2. Commit with the ticket ID if there is one. Push the branch and open a PR to the base
    branch. The body carries: the question, the agreed design, the verification result,
    the known limits, and the visuals as images.
@@ -272,8 +277,9 @@ The aim is that the next analysis gets it right first time.
 
 ## Interactive only (v1)
 
-The human touchpoints are the Design questions, Needs-human checks, High and Medium review
-issues, and the PR. Do not add approval gates between phases. Scheduled or unattended mode
+The human touchpoints are the destination confirmation at Start, the Design questions,
+Needs-human checks, High and Medium review issues, and the PR. Do not add approval gates
+between phases. Scheduled or unattended mode
 is not supported in v1: an unattended run cannot answer Design questions.
 
 ---
